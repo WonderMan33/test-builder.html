@@ -175,6 +175,22 @@
       opacity: 0.4;
       pointer-events: none;
     }
+    .bg-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-top: 0.1rem;
+    }
+    .bg-options label {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      font-size: 0.85rem;
+      color: #e0e0ff;
+    }
+    .bg-options input[type="radio"] {
+      margin-right: 0.35rem;
+    }
     @media (max-width: 720px) {
       body {
         padding: 1rem;
@@ -196,6 +212,28 @@
         <label for="streamTitle">Desired stream title (max 100 characters)</label>
         <input id="streamTitle" type="text" maxlength="100" placeholder="Example: Gunsmoke & Suspense: Night on the Frontier" />
         <div id="charCounter">0 / 100</div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:0.8rem;">
+      <div class="col">
+        <label>Background style</label>
+        <div class="bg-options">
+          <label>
+            <input type="radio" name="background" value="dark_screen" checked>
+            Dark screen
+          </label>
+          <label>
+            <input type="radio" name="background" value="cozy_fireplace">
+            Cozy fireplace
+          </label>
+          <label>
+            <input type="radio" name="background" value="dark_room">
+            Dark room background
+          </label>
+        </div>
+        <div class="small">
+          This tells Wade what kind of visual mood you’d like behind the radio programs.
+        </div>
       </div>
     </div>
     <div class="small">
@@ -327,8 +365,11 @@
     async function loadShows() {
       try {
         statusEl.textContent = 'Loading shows…';
-        const res = await fetch('shows.json');
-        if (!res.ok) throw new Error('Failed to load shows.json');
+        const res = await fetch('shows_enriched.json').catch(async () => {
+          // Fallback to shows.json if enriched not present
+          return await fetch('shows.json');
+        });
+        if (!res || !res.ok) throw new Error('Failed to load shows JSON');
         allShows = await res.json();
         buildGenreList();
         renderShowList();
@@ -336,7 +377,7 @@
       } catch (err) {
         console.error(err);
         statusEl.className = 'error';
-        statusEl.textContent = 'Error loading shows.json. Make sure it exists in the same folder.';
+        statusEl.textContent = 'Error loading shows JSON. Make sure it exists in the same folder.';
       }
     }
 
@@ -627,6 +668,11 @@
       });
     }
 
+    function getBackgroundChoice() {
+      const r = document.querySelector('input[name="background"]:checked');
+      return r ? r.value : null;
+    }
+
     buildBtn.addEventListener('click', () => {
       submitStatusEl.textContent = '';
       submitStatusEl.className = 'small';
@@ -720,6 +766,7 @@
 
       const listener = listenerNameInput.value.trim();
       const title = streamTitleInput.value.trim();
+      const bg = getBackgroundChoice();
 
       if (!listener || !title) {
         submitStatusEl.className = 'error';
@@ -743,6 +790,7 @@
         listener,
         streamTitle: title,
         selectionMode,
+        backgroundStyle: bg,
         episodeCount: currentPlaylist.length,
         playlist: currentPlaylist.map((ep, idx) => ({
           index: idx + 1,
