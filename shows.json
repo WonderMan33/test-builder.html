@@ -13,7 +13,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Animalfarmtamsingreigatobyj is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Animalfarmtamsingreigatobyj is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Animal Farm [read By Bill Nighy]",
@@ -114,7 +114,7 @@
   },
   {
     "id": "bbc-ghosts-from-the-past",
-    "name": "Bbc Ghosts From The Past",
+    "name": "BBC Ghosts From the Past",
     "folder": "bbc-ghosts-from-the-past",
     "genres": [
       "Drama"
@@ -126,20 +126,20 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Bbc Ghosts From The Past is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "BBC Ghosts From the Past is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
-        "title": "BBC Ghosts From The Past 1992 04 08 Black Stockings & Broken Mirrors [by Bernadette Crosthwaite]",
+        "title": "BBC Ghosts From The Past 1992 04 08 Black Stockings & Broken Mirrors [By Bernadette Crosthwaite]",
         "url": "https://pub-a6c460baa47e4fb888b11b3783d24307.r2.dev/golden-radio-hour-library/bbc-ghosts-from-the-past/BBC%20Ghosts%20from%20the%20Past%201992-04-08%20Black%20Stockings%20%26%20Broken%20Mirrors%20%5Bby%20Bernadette%20Crosthwaite%5D%20.mp3",
         "durationSeconds": null
       },
       {
-        "title": "BBC Ghosts From The Past 1992 04 15 The Boat Hook [by Sheila Hodgson]",
+        "title": "BBC Ghosts From The Past 1992 04 15 The Boat Hook [By Sheila Hodgson]",
         "url": "https://pub-a6c460baa47e4fb888b11b3783d24307.r2.dev/golden-radio-hour-library/bbc-ghosts-from-the-past/BBC%20Ghosts%20from%20the%20Past%201992-04-15%20The%20Boat%20Hook%20%5Bby%20Sheila%20Hodgson%5D%20.mp3",
         "durationSeconds": null
       },
       {
-        "title": "BBC Ghosts From The Past 1992 04 22 Mortmain [by John Metcalfe]",
+        "title": "BBC Ghosts From The Past 1992 04 22 Mortmain [By John Metcalfe]",
         "url": "https://pub-a6c460baa47e4fb888b11b3783d24307.r2.dev/golden-radio-hour-library/bbc-ghosts-from-the-past/BBC%20Ghosts%20from%20the%20Past%201992-04-22%20Mortmain%20%5Bby%20John%20Metcalfe%5D%20.mp3",
         "durationSeconds": null
       },
@@ -152,13 +152,14 @@
   },
   {
     "id": "bbc-sci-fi-radio-plays-part-five",
-    "name": "Bbc Sci Fi Radio Plays Part Five",
+    "name": "BBC Sci-fi Radio Plays Part Five",
     "folder": "bbc-sci-fi-radio-plays-part-five",
     "genres": [
       "Science Fiction",
       "Drama"
     ],
     "tags": [
+      "adaptations",
       "bbc radio",
       "classic radio",
       "future",
@@ -169,7 +170,7 @@
       "speculative",
       "vintage radio"
     ],
-    "description": "Bbc Sci Fi Radio Plays Part Five is an old-time radio science fiction series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "BBC Sci-fi Radio Plays Part Five is an old-time radio science fiction series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Brave New World By Aldous Huxley",
@@ -235,13 +236,14 @@
   },
   {
     "id": "bbc-sci-fi-radio-plays-part-nine",
-    "name": "Bbc Sci Fi Radio Plays Part Nine",
+    "name": "BBC Sci-fi Radio Plays Part Nine",
     "folder": "bbc-sci-fi-radio-plays-part-nine",
     "genres": [
       "Science Fiction",
       "Drama"
     ],
     "tags": [
+      "adaptations",
       "bbc radio",
       "classic radio",
       "future",
@@ -252,7 +254,7 @@
       "speculative",
       "vintage radio"
     ],
-    "description": "Bbc Sci Fi Radio Plays Part Nine is an old-time radio science fiction series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "BBC Sci-fi Radio Plays Part Nine is an old-time radio science fiction series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "A Clockwork Orange",
@@ -413,7 +415,7 @@
   },
   {
     "id": "bbc_chillers",
-    "name": "Bbc Chillers",
+    "name": "BBC Chillers",
     "folder": "BBC_Chillers",
     "genres": [
       "Drama"
@@ -425,25 +427,25 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Bbc Chillers is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "BBC Chillers is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
-        "title": "01 2002 01 24 Who Goes There [by John W Campbell]",
+        "title": "01 2002 01 24 Who Goes There [By John W Campbell]",
         "url": "https://pub-a6c460baa47e4fb888b11b3783d24307.r2.dev/golden-radio-hour-library/BBC_Chillers/01%202002-01-24%20Who%20Goes%20There%20%5Bby%20John%20W%20Campbell%5D.mp3",
         "durationSeconds": null
       },
       {
-        "title": "02 2002 01 31 I Have No Mouth, And I Must Scream [by Harlan Ellison]",
+        "title": "02 2002 01 31 I Have No Mouth, And I Must Scream [By Harlan Ellison]",
         "url": "https://pub-a6c460baa47e4fb888b11b3783d24307.r2.dev/golden-radio-hour-library/BBC_Chillers/02%202002-01-31%20I%20Have%20No%20Mouth%2C%20and%20I%20Must%20Scream%20%5Bby%20Harlan%20Ellison%5D.mp3",
         "durationSeconds": null
       },
       {
-        "title": "03 2002 02 07 Delta Sly Honey [by Lucius Shepard]",
+        "title": "03 2002 02 07 Delta Sly Honey [By Lucius Shepard]",
         "url": "https://pub-a6c460baa47e4fb888b11b3783d24307.r2.dev/golden-radio-hour-library/BBC_Chillers/03%202002-02-07%20Delta%20Sly%20Honey%20%5Bby%20Lucius%20Shepard%5D.mp3",
         "durationSeconds": null
       },
       {
-        "title": "04 2002 02 14 Corona [by Samuel R Delaney]",
+        "title": "04 2002 02 14 Corona [By Samuel R Delaney]",
         "url": "https://pub-a6c460baa47e4fb888b11b3783d24307.r2.dev/golden-radio-hour-library/BBC_Chillers/04%202002-02-14%20Corona%20%5Bby%20Samuel%20R%20Delaney%5D.mp3",
         "durationSeconds": null
       }
@@ -451,13 +453,12 @@
   },
   {
     "id": "bbcmarlowe",
-    "name": "Bbcmarlowe",
+    "name": "BBCmarlowe",
     "folder": "BBCMarlowe",
     "genres": [
       "Detective",
       "Crime",
-      "Mystery",
-      "Drama"
+      "Mystery"
     ],
     "tags": [
       "bbc radio",
@@ -470,7 +471,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Bbcmarlowe is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "BBCmarlowe is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "1. The Big Sleep",
@@ -531,7 +532,7 @@
       "thriller",
       "vintage radio"
     ],
-    "description": "Beyond Midnight is an old-time radio suspense series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Beyond Midnight is an old-time radio suspense series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Beyond Midnight 68 11 08 (02) The Paxton's House (the House At Brickett Bottom)",
@@ -839,7 +840,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Bob Bailey As Johnny Dollar is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Bob Bailey As Johnny Dollar is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "YTJD 1956 11 11 511 The Big Scoop Matter",
@@ -1740,7 +1741,7 @@
   },
   {
     "id": "cbs-complete-broadcast-day-d-day-1944-06-06-part-001",
-    "name": "Cbs Complete Broadcast Day D Day 1944 06 06 Part 001",
+    "name": "CBS Complete Broadcast Day D Day 1944 06 06 Part 001",
     "folder": "cbs-complete-broadcast-day-d-day-1944-06-06-part-001",
     "genres": [
       "Drama"
@@ -1752,7 +1753,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Cbs Complete Broadcast Day D Day 1944 06 06 Part 001 is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "CBS Complete Broadcast Day D Day 1944 06 06 Part 001 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "CBS Complete Broadcast Day D Day 1944 06 06 Part 001",
@@ -1878,22 +1879,19 @@
   },
   {
     "id": "cbsrmt-74-02-08-33-conspiracy-to-defraud",
-    "name": "Cbsrmt 74 02 08 33 Conspiracy To Defraud",
+    "name": "Cbsrmt 74 02 08 33 Conspiracy to Defraud",
     "folder": "cbsrmt-74-02-08-33-conspiracy-to-defraud",
     "genres": [
-      "Mystery",
-      "Suspense"
+      "Drama"
     ],
     "tags": [
-      "cbs radio mystery theater",
+      "anthology",
       "classic radio",
       "old time radio",
       "otr",
-      "supernatural",
-      "twist endings",
       "vintage radio"
     ],
-    "description": "Cbsrmt 74 02 08 33 Conspiracy To Defraud is an old-time radio mystery series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Cbsrmt 74 02 08 33 Conspiracy to Defraud is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "CBSRMT 74 01 18 (13) A Ring Of Roses",
@@ -8682,8 +8680,7 @@
     "name": "Christmasspiritsbbc",
     "folder": "ChristmasSpiritsBBC",
     "genres": [
-      "Holiday",
-      "Drama"
+      "Holiday"
     ],
     "tags": [
       "bbc radio",
@@ -8695,7 +8692,7 @@
       "seasonal",
       "vintage radio"
     ],
-    "description": "Christmasspiritsbbc is an old-time radio holiday series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Christmasspiritsbbc is an old-time radio holiday series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "1962 12 24 The Goblins Who Stole A Sexton",
@@ -8788,7 +8785,7 @@
         "durationSeconds": null
       },
       {
-        "title": "2005 01 22 The Drover's Path [by Vanessa Rosenthal]",
+        "title": "2005 01 22 The Drover's Path [By Vanessa Rosenthal]",
         "url": "https://pub-a6c460baa47e4fb888b11b3783d24307.r2.dev/golden-radio-hour-library/ChristmasSpiritsBBC/2005-01-22%20The%20Drover%27s%20Path%20%5Bby%20Vanessa%20Rosenthal%5D%20.mp3",
         "durationSeconds": null
       },
@@ -8833,7 +8830,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Edmond Obrien As Johnny Dollar is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Edmond Obrien As Johnny Dollar is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "YTJD 1950 02 03 034 Death Takes A Working Day (the Loyal B Martin Matter)",
@@ -9239,7 +9236,7 @@
       "stage plays",
       "vintage radio"
     ],
-    "description": "Encore Theater 1946 08 27 13 Disputed Passage is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Encore Theater 1946 08 27 13 Disputed Passage is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Encore Theater 1946 06 04 (1) Magnificent Obsession",
@@ -9310,7 +9307,7 @@
   },
   {
     "id": "fibber-mc-gee-and-molly",
-    "name": "Fibber Mc Gee And Molly",
+    "name": "Fibber Mc Gee and Molly",
     "folder": "fibber-mc-gee-and-molly",
     "genres": [
       "Comedy",
@@ -9326,7 +9323,7 @@
       "variety",
       "vintage radio"
     ],
-    "description": "Fibber Mc Gee And Molly is an old-time radio comedy series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Fibber Mc Gee and Molly is an old-time radio comedy series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "FMM 1935 06 19 (10) My Heart Beats For You",
@@ -11970,21 +11967,16 @@
     "name": "Fu Manchu",
     "folder": "fu manchu",
     "genres": [
-      "Detective",
-      "Crime",
-      "Mystery"
+      "Drama"
     ],
     "tags": [
-      "case files",
+      "anthology",
       "classic radio",
-      "investigation",
-      "noir",
       "old time radio",
       "otr",
-      "private eye",
       "vintage radio"
     ],
-    "description": "Fu Manchu is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Fu Manchu is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "390508 001 Insidious Dr Fu Manchu",
@@ -12441,7 +12433,7 @@
       "six-guns",
       "vintage radio"
     ],
-    "description": "Gunsmoke is an old-time radio western series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Gunsmoke is an old-time radio western series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Gunsmoke 1952 04 26 001 Billy The Kid",
@@ -14829,7 +14821,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Have Gun Will Travel is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Have Gun Will Travel is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "HGWT 1958 11 23 (1) Strange Vendetta (aka Don Miquel Rojas)",
@@ -15365,7 +15357,7 @@
   },
   {
     "id": "hitchhikers-guide-to-the-galaxy-bbcr4",
-    "name": "Hitchhikers Guide To The Galaxy Bbcr4",
+    "name": "Hitchhikers Guide to the Galaxy BBCr4",
     "folder": "hitchhikers-guide-to-the-galaxy-bbcr4",
     "genres": [
       "Drama"
@@ -15377,7 +15369,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Hitchhikers Guide To The Galaxy Bbcr4 is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Hitchhikers Guide to the Galaxy BBCr4 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "01 The Hitchhiker's Guide To The Galaxy Part1",
@@ -15555,7 +15547,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "John Lund As Mandel Kramer is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "John Lund As Mandel Kramer is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "YTJD 1952 11 24 000 The Trans Pacific Matter Part A (john Lund Audition)",
@@ -15636,7 +15628,7 @@
   },
   {
     "id": "l-a-1953-11-20-xx-thanksgiving-in-pine-ridge",
-    "name": "L A 1953 11 20 Xx Thanksgiving In Pine Ridge",
+    "name": "L a 1953 11 20 Xx Thanksgiving in Pine Ridge",
     "folder": "l-a-1953-11-20-xx-thanksgiving-in-pine-ridge",
     "genres": [
       "Drama"
@@ -15648,7 +15640,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "L A 1953 11 20 Xx Thanksgiving In Pine Ridge is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "L a 1953 11 20 Xx Thanksgiving in Pine Ridge is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "L&A 1933 01 02 (xx) Hunting The Lion",
@@ -20119,7 +20111,7 @@
       "thriller",
       "vintage radio"
     ],
-    "description": "Lights Out 20200820 is an old-time radio suspense series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Lights Out 20200820 is an old-time radio suspense series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "1935 Xx Xx Strange Couple Stays Overnight",
@@ -20592,7 +20584,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Lightsoutoldtimeradio is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Lightsoutoldtimeradio is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Lightsout 1936 06 17catwife",
@@ -20953,7 +20945,7 @@
       "stage plays",
       "vintage radio"
     ],
-    "description": "Lux Radio Theatre Digitally Restored Collection is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Lux Radio Theatre Digitally Restored Collection is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "36 06 15 Burlesque {al Jolson, Ruby Keeler}",
@@ -22616,7 +22608,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Mandel Kramer As Johnny Dollar is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Mandel Kramer As Johnny Dollar is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "YTJD 1961 06 18 743 The Low Tide Matter",
@@ -22939,7 +22931,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Mysteryismyhobby2 (1) is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Mysteryismyhobby2 (1) is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "000buriedtreasuremap",
@@ -23320,7 +23312,7 @@
   },
   {
     "id": "nbc-university-theater-1948-10-17-13-history-of-mr-polly",
-    "name": "Nbc University Theater 1948 10 17 13 History Of Mr Polly",
+    "name": "Nbc University Theater 1948 10 17 13 History of Mr Polly",
     "folder": "nbc-university-theater-1948-10-17-13-history-of-mr-polly",
     "genres": [
       "Drama",
@@ -23335,7 +23327,7 @@
       "stage plays",
       "vintage radio"
     ],
-    "description": "Nbc University Theater 1948 10 17 13 History Of Mr Polly is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Nbc University Theater 1948 10 17 13 History of Mr Polly is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "NBC University Theater 1948 12 05 (20) Three Soldiers",
@@ -23818,7 +23810,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Nick Carter is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Nick Carter is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Nick Carter 430706 013 The Echo Of Death",
@@ -24461,7 +24453,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Oldtimeyradioshowscollection is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Oldtimeyradioshowscollection is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "1984 George Orwell",
@@ -29642,7 +29634,7 @@
       "stage plays",
       "vintage radio"
     ],
-    "description": "Otrr All Star Western Theatre Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr All Star Western Theatre Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "All Star Western Theatre 46 01 Xx Epxxx Billy The Kid With Tex Ritter",
@@ -30160,7 +30152,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Barrie Craig Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Barrie Craig Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Barrie Craig 51 10 17 The Judge And The Champ",
@@ -30464,16 +30456,21 @@
     "name": "Otrr Boston Blackie Singles",
     "folder": "OTRR_Boston_Blackie_Singles",
     "genres": [
-      "Drama"
+      "Detective",
+      "Crime",
+      "Mystery"
     ],
     "tags": [
-      "anthology",
+      "case files",
       "classic radio",
+      "investigation",
+      "noir",
       "old time radio",
       "otr",
+      "private eye",
       "vintage radio"
     ],
-    "description": "Otrr Boston Blackie Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Boston Blackie Singles is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Bostonblackie44 06 23001thejonathandiamondaka Therockwelldiamond",
@@ -31467,16 +31464,21 @@
     "name": "Otrr Box 13 Singles",
     "folder": "OTRR_Box_13_Singles",
     "genres": [
-      "Drama"
+      "Detective",
+      "Crime",
+      "Mystery"
     ],
     "tags": [
-      "anthology",
+      "case files",
       "classic radio",
+      "investigation",
+      "noir",
       "old time radio",
       "otr",
+      "private eye",
       "vintage radio"
     ],
-    "description": "Otrr Box 13 Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Box 13 Singles is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Box 13 1948 Xx Xx (001) The First Letter",
@@ -32014,7 +32016,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Broadway Is My Beat Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Broadway Is My Beat Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "BIMB 49 03 06 (002) The Andrew Jenkins Case",
@@ -32887,7 +32889,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Candy Matson Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Candy Matson Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Candymatson49 04 04audthedonnadunhamcase",
@@ -32975,7 +32977,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Casey Crime Photographer Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Casey Crime Photographer Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Casey43 07 071thecaseoftheswitchedplatesflash Guncasey",
@@ -33366,7 +33368,7 @@
   },
   {
     "id": "otrr_cbs_radio_workshop_singles",
-    "name": "Otrr Cbs Radio Workshop Singles",
+    "name": "Otrr CBS Radio Workshop Singles",
     "folder": "OTRR_CBS_Radio_Workshop_Singles",
     "genres": [
       "Drama"
@@ -33378,7 +33380,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Cbs Radio Workshop Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr CBS Radio Workshop Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "CBS Radio Workshop 56 01 27 Ep01 Brave New World Part 1",
@@ -33814,7 +33816,7 @@
   },
   {
     "id": "otrr_certified_crime_and_peter_chambers_ver1.1_cd_1of1",
-    "name": "Otrr Certified Crime And Peter Chambers Ver1.1 Cd 1Of1",
+    "name": "Otrr Certified Crime and Peter Chambers Ver1.1 Cd 1of1",
     "folder": "OTRR_Certified_Crime_and_Peter_Chambers_Ver1.1_CD_1of1",
     "genres": [
       "Drama"
@@ -33826,7 +33828,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Certified Crime And Peter Chambers Ver1.1 Cd 1Of1 is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Certified Crime and Peter Chambers Ver1.1 Cd 1of1 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "00 Intoduction To The OTRR",
@@ -33957,7 +33959,7 @@
   },
   {
     "id": "otrr_certified_dimension_x_ver1_cd_2of2",
-    "name": "Otrr Certified Dimension X Ver1 Cd 2Of2",
+    "name": "Otrr Certified Dimension X Ver1 Cd 2of2",
     "folder": "OTRR_Certified_Dimension_X_Ver1_CD_2of2",
     "genres": [
       "Science Fiction",
@@ -33973,7 +33975,7 @@
       "speculative",
       "vintage radio"
     ],
-    "description": "Otrr Certified Dimension X Ver1 Cd 2Of2 is an old-time radio science fiction series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Certified Dimension X Ver1 Cd 2of2 is an old-time radio science fiction series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Dimension X(1950 09 29)(26)andthemoonbestillasbright",
@@ -34104,7 +34106,7 @@
   },
   {
     "id": "otrr_certified_halls_of_ivy_ver1.2_cd_1of2",
-    "name": "Otrr Certified Halls Of Ivy Ver1.2 Cd 1Of2",
+    "name": "Otrr Certified Halls of Ivy Ver1.2 Cd 1of2",
     "folder": "OTRR_Certified_Halls_of_Ivy_Ver1.2_CD_1of2",
     "genres": [
       "Drama"
@@ -34116,7 +34118,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Certified Halls Of Ivy Ver1.2 Cd 1Of2 is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Certified Halls of Ivy Ver1.2 Cd 1of2 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "00 Introduction To The OTRR",
@@ -34402,7 +34404,7 @@
   },
   {
     "id": "otrr_certified_halls_of_ivy_ver1.2_cd_2of2",
-    "name": "Otrr Certified Halls Of Ivy Ver1.2 Cd 2Of2",
+    "name": "Otrr Certified Halls of Ivy Ver1.2 Cd 2of2",
     "folder": "OTRR_Certified_Halls_of_Ivy_Ver1.2_CD_2of2",
     "genres": [
       "Drama"
@@ -34414,7 +34416,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Certified Halls Of Ivy Ver1.2 Cd 2Of2 is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Certified Halls of Ivy Ver1.2 Cd 2of2 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Halls Of Ivy 51 02 21 (052) Calhoun Gaddy",
@@ -34670,7 +34672,7 @@
   },
   {
     "id": "otrr_certified_sealed_book_ver1_cd_1of2",
-    "name": "Otrr Certified Sealed Book Ver1 Cd 1Of2",
+    "name": "Otrr Certified Sealed Book Ver1 Cd 1of2",
     "folder": "OTRR_Certified_Sealed_Book_Ver1_CD_1of2",
     "genres": [
       "Drama"
@@ -34682,7 +34684,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Certified Sealed Book Ver1 Cd 1Of2 is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Certified Sealed Book Ver1 Cd 1of2 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "00 Introduction To The OTRR",
@@ -34758,7 +34760,7 @@
   },
   {
     "id": "otrr_certified_sealed_book_ver1_cd_2of2",
-    "name": "Otrr Certified Sealed Book Ver1 Cd 2Of2",
+    "name": "Otrr Certified Sealed Book Ver1 Cd 2of2",
     "folder": "OTRR_Certified_Sealed_Book_Ver1_CD_2of2",
     "genres": [
       "Drama"
@@ -34770,7 +34772,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Certified Sealed Book Ver1 Cd 2Of2 is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Certified Sealed Book Ver1 Cd 2of2 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Sealed Book 45 Xx Xx (13) The Ghost Maker",
@@ -34858,7 +34860,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Certified Strange Wills is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Certified Strange Wills is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "00 Introduction To The OTRR",
@@ -35034,7 +35036,7 @@
   },
   {
     "id": "otrr_curated_under_arrest_v2206_cd_1of1",
-    "name": "Otrr Curated Under Arrest V2206 Cd 1Of1",
+    "name": "Otrr Curated Under Arrest V2206 Cd 1of1",
     "folder": "OTRR_Curated_Under_Arrest_v2206_CD_1of1",
     "genres": [
       "Drama"
@@ -35046,7 +35048,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Curated Under Arrest V2206 Cd 1Of1 is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Curated Under Arrest V2206 Cd 1of1 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Under Arrest 1948 06 06 (024) The Case Of The Accidental Murders",
@@ -35109,7 +35111,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Dangerously Yours Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Dangerously Yours Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Dangerously Yours 44 06 20 Aud 1 Masquerade",
@@ -35192,7 +35194,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Dark Fantasy Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Dark Fantasy Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Dark Fantasy 41 11 14 (01) The Man Who Came Back",
@@ -35345,7 +35347,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Falcon Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Falcon Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "01 The Falcon Audio Brief",
@@ -35873,7 +35875,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Frank Race Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Frank Race Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Frank Race 49 Xx Xx Ep01 The Adventure Of The Hackensack Victory",
@@ -36106,7 +36108,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Jeff Regan Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Jeff Regan Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "00 OTRR Introduction",
@@ -36419,7 +36421,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr John Steele Adventurer Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr John Steele Adventurer Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "John Steele Adventurer 49 06 14 008 Awakening",
@@ -36670,7 +36672,7 @@
   },
   {
     "id": "otrr_luke_slaughter_of_tombstone_singles",
-    "name": "Otrr Luke Slaughter Of Tombstone Singles",
+    "name": "Otrr Luke Slaughter of Tombstone Singles",
     "folder": "OTRR_Luke_Slaughter_Of_Tombstone_Singles",
     "genres": [
       "Drama"
@@ -36682,7 +36684,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Luke Slaughter Of Tombstone Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Luke Slaughter of Tombstone Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Luke Slaughter 58 02 23 Ep01 Duel On The Trail",
@@ -36768,7 +36770,7 @@
   },
   {
     "id": "otrr_maintained_in_the_name_of_the_law_v2304_cd_1of1",
-    "name": "Otrr Maintained In The Name Of The Law V2304 Cd 1Of1",
+    "name": "Otrr Maintained in the Name of the Law V2304 Cd 1of1",
     "folder": "OTRR_Maintained_In_the_Name_of_the_Law_v2304_CD_1of1",
     "genres": [
       "Detective",
@@ -36785,7 +36787,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Otrr Maintained In The Name Of The Law V2304 Cd 1Of1 is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Maintained in the Name of the Law V2304 Cd 1of1 is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "00 OTRR Introduction",
@@ -36861,7 +36863,7 @@
   },
   {
     "id": "otrr_maintained_phillip_marlowe_v2005_dvd_1of1",
-    "name": "Otrr Maintained Phillip Marlowe V2005 Dvd 1Of1",
+    "name": "Otrr Maintained Phillip Marlowe V2005 Dvd 1of1",
     "folder": "OTRR_Maintained_Phillip_Marlowe_v2005_DVD_1of1",
     "genres": [
       "Detective",
@@ -36878,7 +36880,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Otrr Maintained Phillip Marlowe V2005 Dvd 1Of1 is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Maintained Phillip Marlowe V2005 Dvd 1of1 is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "00 OTRR Introduction",
@@ -37581,7 +37583,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Man Called X Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Man Called X Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "01 The Man Called X Series Synopsis",
@@ -38165,19 +38167,27 @@
     "name": "Otrr Molle Mystery Theatre Singles",
     "folder": "OTRR_Molle_Mystery_Theatre_Singles",
     "genres": [
+      "Suspense",
+      "Horror",
+      "Mystery",
       "Drama",
       "Anthology"
     ],
     "tags": [
+      "cbs radio mystery theater",
       "classic radio",
       "dramatic anthology",
+      "macabre",
       "movie adaptations",
       "old time radio",
       "otr",
       "stage plays",
+      "supernatural",
+      "thriller",
+      "twist endings",
       "vintage radio"
     ],
-    "description": "Otrr Molle Mystery Theatre Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Molle Mystery Theatre Singles is an old-time radio suspense series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Molle 1943 12 28 Homicide For Hannah",
@@ -38550,7 +38560,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Mr District Attorney Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Mr District Attorney Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Mr District Attorney 39 04 03 001 The Milano Brothers",
@@ -38988,7 +38998,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Mysterious Traveler Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Mysterious Traveler Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Mysterious Traveler 44 01 30 (009) The House Of Death",
@@ -39356,7 +39366,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Mystery House Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Mystery House Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Mysteryhouse45 08 19079anewleaseondeath",
@@ -39522,7 +39532,7 @@
   },
   {
     "id": "otrr_new_adventures_of_nero_wolfe_singles",
-    "name": "Otrr New Adventures Of Nero Wolfe Singles",
+    "name": "Otrr New Adventures of Nero Wolfe Singles",
     "folder": "OTRR_New_Adventures_of_Nero_Wolfe_Singles",
     "genres": [
       "Drama"
@@ -39534,7 +39544,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr New Adventures Of Nero Wolfe Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr New Adventures of Nero Wolfe Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Nanw 50 10 20 Ep01 Stamped For Murder",
@@ -39677,7 +39687,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Obsession Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Obsession Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "01 Obsession Synopsis",
@@ -39850,7 +39860,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Philo Vance Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Philo Vance Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Philo Vance 43 04 29 Xxx The Case Of The Cellini Cup",
@@ -40348,7 +40358,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Otrr Rogues Gallery Singles is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Rogues Gallery Singles is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Rogue's Gallery 1946 04 04 (42) Favor For A Condemned Man",
@@ -40486,7 +40496,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Roy Rogers Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Roy Rogers Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Roy Rogers 45 01 23 (010) Guest Sara Berner",
@@ -40972,7 +40982,7 @@
   },
   {
     "id": "otrr_secrets_of_scotland_yard_singles",
-    "name": "Otrr Secrets Of Scotland Yard Singles",
+    "name": "Otrr Secrets of Scotland Yard Singles",
     "folder": "OTRR_Secrets_Of_Scotland_Yard_Singles",
     "genres": [
       "Drama"
@@ -40984,7 +40994,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Secrets Of Scotland Yard Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Secrets of Scotland Yard Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Secretsofscotlandyardxx Xx Xx 011 Murderatmoathousefarm",
@@ -41275,7 +41285,7 @@
   },
   {
     "id": "otrr_tales_of_the_texas_rangers_single",
-    "name": "Otrr Tales Of The Texas Rangers Single",
+    "name": "Otrr Tales of the Texas Rangers Single",
     "folder": "OTRR_Tales_of_the_Texas_Rangers_Single",
     "genres": [
       "Drama"
@@ -41287,7 +41297,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Tales Of The Texas Rangers Single is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Tales of the Texas Rangers Single is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "00 Old Time Radio Researchers Introduction",
@@ -41763,7 +41773,7 @@
   },
   {
     "id": "otrr_the_great_gildersleeve_singles",
-    "name": "Otrr The Great Gildersleeve Singles",
+    "name": "Otrr the Great Gildersleeve Singles",
     "folder": "Otrr_The_Great_Gildersleeve_Singles",
     "genres": [
       "Drama"
@@ -41775,7 +41785,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr The Great Gildersleeve Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr the Great Gildersleeve Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "The Great Gildersleeve 41 05 16 (xxx) Audition Show",
@@ -44508,7 +44518,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr This Is Your Fbi Singles is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr This Is Your Fbi Singles is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "This Is Your FBI 45 10 12 (028) The House On 92nd Street",
@@ -46339,7 +46349,7 @@
       "thriller",
       "vintage radio"
     ],
-    "description": "Otrr Weird Circle Singles is an old-time radio suspense series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Weird Circle Singles is an old-time radio suspense series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Weird Circle 4x Xx Xx Ep01 The Fall Of The House Of Usher",
@@ -46750,7 +46760,7 @@
       "thriller",
       "vintage radio"
     ],
-    "description": "Otrr Whistler Singles is an old-time radio suspense series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Whistler Singles is an old-time radio suspense series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Whistler 42 05 16 Ep001 Retribution",
@@ -49282,7 +49292,7 @@
       "six-guns",
       "vintage radio"
     ],
-    "description": "Otrr Wild Bill Hickock Singles is an old-time radio western series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Wild Bill Hickock Singles is an old-time radio western series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "01 Wild Bill Hickok Series Synopsis",
@@ -50635,7 +50645,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Otrr Yourstrulyjohnnydollar Singles (1) is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Otrr Yourstrulyjohnnydollar Singles (1) is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "YTJD 1948 12 07 000 Milford Brooks III (dick Powell Audition)",
@@ -54262,7 +54272,7 @@
       "six-guns",
       "vintage radio"
     ],
-    "description": "Red Ryder is an old-time radio western series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Red Ryder is an old-time radio western series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Red Ryder 1942 02 07 Trouble On Shogono Trail",
@@ -54610,7 +54620,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Sam Spade is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Sam Spade is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "460712 The Sam And Guiana Sovereign Caper",
@@ -54911,7 +54921,7 @@
       "stage plays",
       "vintage radio"
     ],
-    "description": "Screen Guild Theater 1939 01 08 1 Variety Review 1 Begin Gulf Screen Guild Show is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Screen Guild Theater 1939 01 08 1 Variety Review 1 Begin Gulf Screen Guild Show is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Screen Guild Theater 1939 01 08 (1) Variety Review 1 (begin Gulf Screen Guild Show)",
@@ -56758,7 +56768,7 @@
       "variety",
       "vintage radio"
     ],
-    "description": "Sealtest Variety Theater 1948 10 21 6 Happy Ending is an old-time radio comedy series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Sealtest Variety Theater 1948 10 21 6 Happy Ending is an old-time radio comedy series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Sealtest Variety Theater 1949 01 13 (18) Gene Kelly & Dennis Day",
@@ -56884,7 +56894,7 @@
   },
   {
     "id": "stories-of-sherlock-holmes-sa-85-04-28-x-the-sarussi-pea",
-    "name": "Stories Of Sherlock Holmes Sa 85 04 28 X The Sarussi Pea",
+    "name": "Stories of Sherlock Holmes Sa 85 04 28 X the Sarussi Pea",
     "folder": "stories-of-sherlock-holmes-sa-85-04-28-x-the-sarussi-pea",
     "genres": [
       "Detective",
@@ -56901,7 +56911,7 @@
       "private eye",
       "vintage radio"
     ],
-    "description": "Stories Of Sherlock Holmes Sa 85 04 28 X The Sarussi Pea is an old-time radio detective series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Stories of Sherlock Holmes Sa 85 04 28 X the Sarussi Pea is an old-time radio detective series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Stories Of Sherlock Holmes SA Xx Xx Xx (x) Curious Case Of",
@@ -56997,7 +57007,7 @@
   },
   {
     "id": "the-shadow-1938-10-09-141-death-stalks-the-shadow",
-    "name": "The Shadow 1938 10 09 141 Death Stalks The Shadow",
+    "name": "The Shadow 1938 10 09 141 Death Stalks the Shadow",
     "folder": "the-shadow-1938-10-09-141-death-stalks-the-shadow",
     "genres": [
       "Drama"
@@ -57009,7 +57019,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "The Shadow 1938 10 09 141 Death Stalks The Shadow is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "The Shadow 1938 10 09 141 Death Stalks the Shadow is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "The Shadow 1937 09 26 (87) The Death House Rescue",
@@ -58222,7 +58232,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Thesaintvincentpriceotr is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Thesaintvincentpriceotr is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "The Saint 440731 The Connelly Silver Mine",
@@ -58695,7 +58705,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Truedetectivemysteries is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Truedetectivemysteries is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "TDM 370308 001 Rattlesnake Barefoot Bride",
@@ -58817,7 +58827,7 @@
       "speculative",
       "vintage radio"
     ],
-    "description": "Twilight Zone Radio Dramas is an old-time radio science fiction series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Twilight Zone Radio Dramas is an old-time radio science fiction series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "A Game Of Pool",
@@ -59703,7 +59713,7 @@
   },
   {
     "id": "voicesgrave_bbcradio",
-    "name": "Voicesgrave Bbcradio",
+    "name": "Voicesgrave BBCradio",
     "folder": "VoicesGrave_BBCRadio",
     "genres": [
       "Drama"
@@ -59715,7 +59725,7 @@
       "otr",
       "vintage radio"
     ],
-    "description": "Voicesgrave Bbcradio is an old-time radio drama series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Voicesgrave BBCradio is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "BBC Voices From The Grave 01 2006 03 07 50 Berkeley Square",
@@ -59741,23 +59751,19 @@
   },
   {
     "id": "zero-hour-1974-02-06-38-a-die-in-the-country-chapter-3",
-    "name": "Zero Hour 1974 02 06 38 A Die In The Country Chapter 3",
+    "name": "Zero Hour 1974 02 06 38 a Die in the Country Chapter 3",
     "folder": "zero-hour-1974-02-06-38-a-die-in-the-country-chapter-3",
     "genres": [
-      "Science Fiction",
       "Drama"
     ],
     "tags": [
+      "anthology",
       "classic radio",
-      "future",
-      "imagination",
       "old time radio",
       "otr",
-      "sci-fi",
-      "speculative",
       "vintage radio"
     ],
-    "description": "Zero Hour 1974 02 06 38 A Die In The Country Chapter 3 is an old-time radio science fiction series from the golden age of radio. This collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
+    "description": "Zero Hour 1974 02 06 38 a Die in the Country Chapter 3 is an old-time radio drama series from the golden age of radio. This curated collection gathers surviving recordings for easy marathon listening in the Golden Radio Hour library.",
     "episodes": [
       {
         "title": "Zero Hour 1973 12 17 (1) The Wife Of The Red Haired Man Chapter 1",
