@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Golden Radio Hour – Playlist Builder</title>
+  <title>Golden Radio Hour – 12-Hour Stream Builder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0b0b10;
+      background: #06060c;
       color: #f5f5f5;
       margin: 0;
       padding: 1.5rem;
@@ -16,12 +16,16 @@
       margin-top: 0;
       font-size: 1.8rem;
     }
+    h2 {
+      font-size: 1.2rem;
+      margin: 0 0 0.6rem 0;
+    }
     .panel {
-      background: #151521;
+      background: #121221;
       border-radius: 10px;
       padding: 1rem 1.25rem;
       margin-bottom: 1rem;
-      border: 1px solid #26263a;
+      border: 1px solid #25253a;
     }
     label {
       display: block;
@@ -29,27 +33,55 @@
       font-size: 0.9rem;
       color: #d0d0e0;
     }
-    select, input[type="number"], input[type="text"], button {
+    input[type="text"] {
+      width: 100%;
       padding: 0.4rem 0.6rem;
       border-radius: 6px;
       border: 1px solid #343450;
-      background: #101019;
+      background: #0b0b15;
       color: #f5f5f5;
       font-size: 0.95rem;
     }
-    select[multiple] {
-      height: 160px;
+    input[type="checkbox"] {
+      accent-color: #ffc53a;
     }
     button {
-      cursor: pointer;
-      border: 1px solid #ffd35a;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid #ffc53a;
       background: #ffc53a;
       color: #111;
       font-weight: 600;
-      margin-top: 0.75rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-right: 0.4rem;
+      margin-top: 0.4rem;
+    }
+    button.secondary {
+      background: transparent;
+      color: #ffc53a;
     }
     button:hover {
       background: #ffdd74;
+      color: #111;
+    }
+    button.secondary:hover {
+      background: rgba(255, 197, 58, 0.1);
+    }
+    .small {
+      font-size: 0.8rem;
+      color: #a0a0b8;
+      margin-top: 0.3rem;
+    }
+    .error {
+      color: #ff8383;
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+    }
+    .success {
+      color: #7fe29b;
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
     }
     .row {
       display: flex;
@@ -60,10 +92,36 @@
       flex: 1 1 260px;
       min-width: 260px;
     }
-    .small {
-      font-size: 0.8rem;
-      color: #a0a0b8;
-      margin-top: 0.3rem;
+    .pill {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: #25253a;
+      font-size: 0.75rem;
+      margin: 0 0.2rem 0.2rem 0;
+    }
+    .genre-list, .show-list {
+      max-height: 220px;
+      overflow-y: auto;
+      border-radius: 8px;
+      border: 1px solid #25253a;
+      padding: 0.5rem;
+      background: #0b0b15;
+      font-size: 0.85rem;
+    }
+    .genre-item, .show-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.25rem;
+    }
+    .genre-item label, .show-item label {
+      margin: 0 0 0 0.35rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .show-item small {
+      color: #8080a0;
+      margin-left: 0.25rem;
     }
     table {
       width: 100%;
@@ -72,44 +130,15 @@
       font-size: 0.9rem;
     }
     th, td {
-      border: 1px solid #26263a;
+      border: 1px solid #25253a;
       padding: 0.4rem 0.6rem;
       text-align: left;
     }
     th {
-      background: #1d1d2b;
+      background: #19192a;
     }
     a {
       color: #7fd2ff;
-    }
-    .error {
-      color: #ff7676;
-      font-size: 0.85rem;
-      margin-top: 0.4rem;
-    }
-    .success {
-      color: #7fe29b;
-      font-size: 0.85rem;
-      margin-top: 0.4rem;
-    }
-    .pill-toggle {
-      display: inline-flex;
-      border-radius: 999px;
-      border: 1px solid #343450;
-      overflow: hidden;
-      margin-top: 0.3rem;
-    }
-    .pill-toggle button {
-      border-radius: 0;
-      border: none;
-      background: transparent;
-      padding: 0.35rem 0.7rem;
-      font-size: 0.85rem;
-      color: #d0d0e0;
-    }
-    .pill-toggle button.active {
-      background: #ffc53a;
-      color: #111;
     }
     tr[data-index] {
       cursor: move;
@@ -117,24 +146,13 @@
     tr.drag-over {
       outline: 2px dashed #ffc53a;
     }
-    .badge {
-      display: inline-block;
-      padding: 0.1rem 0.45rem;
-      border-radius: 999px;
-      background: #26263a;
-      font-size: 0.75rem;
-      margin: 0 0.2rem 0.2rem 0;
+    #charCounter {
+      font-size: 0.8rem;
+      color: #a0a0b8;
+      text-align: right;
+      margin-top: 0.1rem;
     }
-    #showDetailsTitle {
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-    }
-    #showDetailsDesc {
-      font-size: 0.85rem;
-      color: #d0d0e0;
-      margin-bottom: 0.3rem;
-    }
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
       body {
         padding: 1rem;
       }
@@ -142,257 +160,221 @@
   </style>
 </head>
 <body>
-  <h1>Golden Radio Hour – Playlist Builder</h1>
+  <h1>Golden Radio Hour – 12-Hour Stream Builder</h1>
 
   <div class="panel">
+    <h2>1. Listener & Stream Info</h2>
     <div class="row">
       <div class="col">
-        <label for="genreFilter">Filter by genre</label>
-        <select id="genreFilter">
-          <option value="">All genres</option>
-        </select>
+        <label for="listenerName">Listener name</label>
+        <input id="listenerName" type="text" placeholder="How should we refer to you?" />
+      </div>
+      <div class="col">
+        <label for="streamTitle">Desired stream title (max 100 characters)</label>
+        <input id="streamTitle" type="text" maxlength="100" placeholder="Example: Gunsmoke & Suspense: Night on the Frontier" />
+        <div id="charCounter">0 / 100</div>
+      </div>
+    </div>
+    <div class="small">
+      This builder will aim for a single playlist of about 12 hours. You can reorder episodes after it’s generated.
+    </div>
+  </div>
 
-        <label for="showSearch">Search shows / tags</label>
-        <input id="showSearch" type="text" placeholder="e.g. western, comedy, mystery" />
-
-        <label for="showSelect" style="margin-top:0.6rem;">Shows</label>
-        <select id="showSelect" multiple></select>
+  <div class="panel">
+    <h2>2. Choose Genres & Shows</h2>
+    <div class="row">
+      <div class="col">
+        <label>Filter by genres (optional)</label>
+        <div id="genreList" class="genre-list">
+          <!-- Genres will be injected here -->
+        </div>
         <div class="small">
-          Hold Ctrl (Cmd on Mac) to select multiple shows. Episodes will be alternated evenly.
+          Selecting genres narrows the show list on the right. You can still manually pick individual shows.
         </div>
       </div>
-
       <div class="col">
-        <label>Mode</label>
-        <div class="pill-toggle">
-          <button type="button" id="modeEpisodes" class="active">By Episodes</button>
-          <button type="button" id="modeHours">By Hours (max 11h50)</button>
-        </div>
+        <label for="showSearch">Search shows</label>
+        <input id="showSearch" type="text" placeholder="Search by show name or tag…" />
 
-        <div id="episodesConfig">
-          <label for="episodeCount">Number of episodes</label>
-          <input type="number" id="episodeCount" min="1" value="20" />
+        <label style="margin-top:0.4rem;">Pick your shows</label>
+        <div id="showList" class="show-list">
+          <!-- Shows with checkboxes injected here -->
         </div>
-
-        <div id="hoursConfig" style="display:none;">
-          <label for="targetHours">Target duration (hours)</label>
-          <input type="number" id="targetHours" min="1" max="11.83" step="0.25" value="11.83" />
-          <div class="small">
-            Capped at 11h 50m (11.83 hours). Requires <code>durationSeconds</code> in JSON.
-          </div>
-        </div>
-
-        <label style="margin-top:0.4rem;">
-          <input type="checkbox" id="shuffleToggle" checked />
-          Shuffle inside each show before alternating
-        </label>
         <div class="small">
-          Multipart episodes (Part 1, Pt. 1, 1 of 2, etc.) are automatically skipped.
-        </div>
-
-        <label style="margin-top:0.6rem;">Build Playlist</label>
-        <button id="buildBtn">Build Playlist</button>
-        <div id="status" class="small"></div>
-        <div id="downloadWrapper" style="margin-top:0.4rem; display:none;">
-          <a id="downloadM3U" href="#" download="grh_playlist.m3u">⬇ Download .m3u playlist</a>
-        </div>
-      </div>
-
-      <div class="col">
-        <label>Show details</label>
-        <div id="showDetails" class="small">
-          <div>No show selected.</div>
+          You can select as many shows as you like. The builder will alternate episodes from the selected shows.
         </div>
       </div>
     </div>
   </div>
 
   <div class="panel">
-    <h2 style="margin-top:0;">Generated Playlist (drag to reorder)</h2>
+    <h2>3. Build Playlist (~12 hours)</h2>
+    <button id="buildBtn">Generate 12-Hour Playlist</button>
+    <button id="clearBtn" class="secondary">Clear playlist</button>
+    <div id="status" class="small"></div>
     <div id="summary" class="small"></div>
-    <div id="playlistContainer"></div>
+    <div id="downloadWrapper" style="margin-top:0.5rem; display:none;">
+      <a id="downloadM3U" href="#" download="golden_radio_hour_playlist.m3u">⬇ Download .m3u playlist</a>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>4. Playlist (drag to reorder)</h2>
+    <div id="playlistContainer" class="small">No playlist generated yet.</div>
+  </div>
+
+  <div class="panel">
+    <h2>5. Send to Golden Radio Hour</h2>
+    <div class="small">
+      When you’re happy with the order, send it so it can be considered for a future stream.
+    </div>
+    <button id="sendBtn">Send playlist to Wade</button>
+    <div id="submitStatus" class="small"></div>
   </div>
 
   <script>
+    // Formspree endpoint wired to your form
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/mqarbnyg";
+
     const MAX_HOURS = 11 + 50 / 60;
     const MAX_SECONDS = 11 * 3600 + 50 * 60;
 
-    const showSelect = document.getElementById('showSelect');
-    const genreFilter = document.getElementById('genreFilter');
-    const showSearch = document.getElementById('showSearch');
+    let allShows = [];
+    let filteredShows = [];
+    let currentPlaylist = [];
 
-    const modeEpisodesBtn = document.getElementById('modeEpisodes');
-    const modeHoursBtn = document.getElementById('modeHours');
-    const episodesConfig = document.getElementById('episodesConfig');
-    const hoursConfig = document.getElementById('hoursConfig');
-    const episodeCountInput = document.getElementById('episodeCount');
-    const targetHoursInput = document.getElementById('targetHours');
-    const shuffleToggle = document.getElementById('shuffleToggle');
+    const listenerNameInput = document.getElementById('listenerName');
+    const streamTitleInput = document.getElementById('streamTitle');
+    const charCounter = document.getElementById('charCounter');
+
+    const genreListEl = document.getElementById('genreList');
+    const showSearchInput = document.getElementById('showSearch');
+    const showListEl = document.getElementById('showList');
+
     const buildBtn = document.getElementById('buildBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const sendBtn = document.getElementById('sendBtn');
+
     const statusEl = document.getElementById('status');
     const summaryEl = document.getElementById('summary');
     const playlistContainer = document.getElementById('playlistContainer');
     const downloadWrapper = document.getElementById('downloadWrapper');
     const downloadM3U = document.getElementById('downloadM3U');
-    const showDetails = document.getElementById('showDetails');
+    const submitStatusEl = document.getElementById('submitStatus');
 
-    let allShows = [];
-    let filteredShows = [];
-    let currentMode = 'episodes';
-    let currentPlaylist = [];
-
-    // MODE TOGGLE
-    modeEpisodesBtn.addEventListener('click', () => {
-      currentMode = 'episodes';
-      modeEpisodesBtn.classList.add('active');
-      modeHoursBtn.classList.remove('active');
-      episodesConfig.style.display = '';
-      hoursConfig.style.display = 'none';
+    // Title char counter
+    streamTitleInput.addEventListener('input', () => {
+      const len = streamTitleInput.value.length;
+      charCounter.textContent = `${len} / 100`;
     });
 
-    modeHoursBtn.addEventListener('click', () => {
-      currentMode = 'hours';
-      modeHoursBtn.classList.add('active');
-      modeEpisodesBtn.classList.remove('active');
-      hoursConfig.style.display = '';
-      episodesConfig.style.display = 'none';
-    });
-
-    // LOAD SHOWS
+    // Load shows.json
     async function loadShows() {
       try {
-        statusEl.textContent = 'Loading shows.json...';
+        statusEl.textContent = 'Loading shows…';
         const res = await fetch('shows.json');
         if (!res.ok) throw new Error('Failed to load shows.json');
         allShows = await res.json();
         filteredShows = allShows.slice();
-        populateGenreFilter();
-        renderShowOptions(false);
+        buildGenreList();
+        renderShowList();
         statusEl.textContent = `Loaded ${allShows.length} shows.`;
       } catch (err) {
         console.error(err);
-        statusEl.textContent = '';
-        const errDiv = document.createElement('div');
-        errDiv.className = 'error';
-        errDiv.textContent = 'Error loading shows.json – check that it exists and is valid JSON.';
-        statusEl.parentElement.appendChild(errDiv);
+        statusEl.className = 'error';
+        statusEl.textContent = 'Error loading shows.json. Make sure it exists in the same folder.';
       }
     }
 
-    function populateGenreFilter() {
+    function buildGenreList() {
       const genres = new Set();
       allShows.forEach(show => {
         (show.genres || []).forEach(g => {
           if (g && typeof g === 'string') genres.add(g.trim());
         });
       });
-      genreFilter.innerHTML = '<option value="">All genres</option>';
-      Array.from(genres).sort().forEach(g => {
-        const opt = document.createElement('option');
-        opt.value = g;
-        opt.textContent = g;
-        genreFilter.appendChild(opt);
+      const sortedGenres = Array.from(genres).sort();
+      genreListEl.innerHTML = '';
+      sortedGenres.forEach(g => {
+        const id = `genre_${g.replace(/\s+/g, '_').toLowerCase()}`;
+        const div = document.createElement('div');
+        div.className = 'genre-item';
+        div.innerHTML = `
+          <input type="checkbox" id="${id}" data-genre="${g}">
+          <label for="${id}">${g}</label>
+        `;
+        genreListEl.appendChild(div);
       });
+
+      genreListEl.addEventListener('change', applyFilters);
+    }
+
+    function getSelectedGenres() {
+      const checked = genreListEl.querySelectorAll('input[type="checkbox"]:checked');
+      return Array.from(checked).map(cb => cb.getAttribute('data-genre'));
     }
 
     function applyFilters() {
-      const genre = genreFilter.value.trim().toLowerCase();
-      const q = showSearch.value.trim().toLowerCase();
+      const selectedGenres = getSelectedGenres();
+      const q = (showSearchInput.value || '').toLowerCase().trim();
 
       filteredShows = allShows.filter(show => {
         let ok = true;
 
-        if (genre) {
-          const genres = (show.genres || []).map(g => (g || '').toLowerCase());
-          ok = genres.includes(genre);
-          if (!ok) return false;
+        if (selectedGenres.length > 0) {
+          const showGenres = (show.genres || []).map(g => (g || '').toLowerCase());
+          const hit = selectedGenres.some(g => showGenres.includes(g.toLowerCase()));
+          if (!hit) ok = false;
         }
 
-        if (q) {
+        if (ok && q) {
           const tagsText = (show.tags || []).join(' ');
           const hay = (show.name + ' ' + tagsText).toLowerCase();
-          ok = hay.includes(q);
+          if (!hay.includes(q)) ok = false;
         }
 
         return ok;
       });
 
-      renderShowOptions(true);
+      renderShowList();
     }
 
-    function renderShowOptions(preserveSelection) {
-      const prevSelected = preserveSelection
-        ? Array.from(showSelect.selectedOptions).map(o => o.value)
-        : [];
+    showSearchInput.addEventListener('input', applyFilters);
 
-      showSelect.innerHTML = '';
+    function renderShowList() {
+      showListEl.innerHTML = '';
+      if (filteredShows.length === 0) {
+        showListEl.innerHTML = '<div class="small">No shows match your filters.</div>';
+        return;
+      }
+
       filteredShows.forEach(show => {
-        const opt = document.createElement('option');
-        opt.value = show.id;
-        opt.textContent = show.name || show.id;
-        if (prevSelected.includes(show.id)) {
-          opt.selected = true;
-        }
-        showSelect.appendChild(opt);
+        const id = `show_${show.id}`;
+        const tags = show.tags || [];
+        const genres = show.genres || [];
+        const div = document.createElement('div');
+        div.className = 'show-item';
+        let metaBits = [];
+        if (genres.length) metaBits.push(genres.join(', '));
+        if (tags.length) metaBits.push(tags.slice(0, 3).join(', '));
+        const metaText = metaBits.length ? ` – ${metaBits.join(' · ')}` : '';
+
+        div.innerHTML = `
+          <input type="checkbox" id="${id}" data-show-id="${show.id}">
+          <label for="${id}">${show.name}</label>
+          <small>${metaText}</small>
+        `;
+        showListEl.appendChild(div);
       });
-
-      updateShowDetails();
     }
 
-    genreFilter.addEventListener('change', applyFilters);
-    showSearch.addEventListener('input', applyFilters);
-    showSelect.addEventListener('change', updateShowDetails);
-
-    function updateShowDetails() {
-      const selectedIds = Array.from(showSelect.selectedOptions).map(o => o.value);
-      if (selectedIds.length === 0) {
-        showDetails.innerHTML = '<div class="small">No show selected.</div>';
-        return;
-      }
-
-      if (selectedIds.length > 1) {
-        showDetails.innerHTML = `<div class="small">${selectedIds.length} shows selected.</div>`;
-        return;
-      }
-
-      const showId = selectedIds[0];
-      const show = allShows.find(s => s.id === showId);
-      if (!show) {
-        showDetails.innerHTML = '<div class="small">Show details not found.</div>';
-        return;
-      }
-
-      const genres = show.genres || [];
-      const tags = show.tags || [];
-      const desc = show.description || '';
-
-      let html = '';
-      html += `<div id="showDetailsTitle">${show.name || show.id}</div>`;
-
-      if (genres.length) {
-        html += `<div class="small">Genres: `;
-        genres.forEach(g => {
-          html += `<span class="badge">${g}</span>`;
-        });
-        html += `</div>`;
-      }
-
-      if (tags.length) {
-        html += `<div class="small">Tags: `;
-        tags.forEach(t => {
-          html += `<span class="badge">${t}</span>`;
-        });
-        html += `</div>`;
-      }
-
-      if (desc) {
-        html += `<div id="showDetailsDesc">${desc}</div>`;
-      }
-
-      showDetails.innerHTML = html;
+    function getSelectedShowIds() {
+      const checked = showListEl.querySelectorAll('input[type="checkbox"]:checked');
+      return Array.from(checked).map(cb => cb.getAttribute('data-show-id'));
     }
 
-    // TITLE / MULTIPART HELPERS
+    // Helpers for episodes / playlist
+
     function isMultiPartTitle(rawTitle) {
       if (!rawTitle) return false;
       const t = rawTitle.toLowerCase();
@@ -434,88 +416,6 @@
       }
     }
 
-    // BUILD PLAYLIST
-    buildBtn.addEventListener('click', () => {
-      try {
-        const selectedShowIds = Array.from(showSelect.selectedOptions).map(o => o.value);
-        if (selectedShowIds.length === 0) {
-          statusEl.className = 'error';
-          statusEl.textContent = 'Select at least one show.';
-          return;
-        }
-
-        statusEl.className = 'small';
-        statusEl.textContent = 'Building playlist...';
-
-        const selectedShows = allShows.filter(s => selectedShowIds.includes(s.id));
-
-        const grouped = selectedShows.map(show => {
-          const eps = Array.isArray(show.episodes) ? show.episodes : [];
-          let list = eps
-            .map(ep => {
-              const url = ep.url;
-              const cleanedTitle = normalizeTitle(ep.title, url);
-              return {
-                showId: show.id,
-                showName: show.name,
-                title: cleanedTitle,
-                url,
-                durationSeconds: typeof ep.durationSeconds === 'number' ? ep.durationSeconds : null
-              };
-            })
-            .filter(ep => ep.url && !isMultiPartTitle(ep.title));
-
-          if (shuffleToggle.checked) {
-            list = shuffleArray(list);
-          }
-          return list;
-        });
-
-        const totalAvailableEpisodes = grouped.reduce((acc, g) => acc + g.length, 0);
-        if (totalAvailableEpisodes === 0) {
-          statusEl.className = 'error';
-          statusEl.textContent = 'No eligible episodes found (multipart titles may have been filtered out).';
-          return;
-        }
-
-        let chosen = [];
-        let totalSeconds = 0;
-
-        if (currentMode === 'episodes') {
-          const targetCount = Math.max(1, parseInt(episodeCountInput.value || '1', 10));
-          chosen = buildAlternatingByCount(grouped, targetCount);
-          totalSeconds = sumDurations(chosen);
-        } else {
-          let requestedHours = parseFloat(targetHoursInput.value || MAX_HOURS);
-          if (isNaN(requestedHours)) requestedHours = MAX_HOURS;
-          requestedHours = Math.min(requestedHours, MAX_HOURS);
-          const targetSeconds = Math.min(requestedHours * 3600, MAX_SECONDS);
-
-          const hasDurations = grouped.some(g => g.some(ep => ep.durationSeconds));
-          if (!hasDurations) {
-            const fallbackCount = Math.max(1, parseInt(episodeCountInput.value || '20', 10));
-            chosen = buildAlternatingByCount(grouped, fallbackCount);
-            totalSeconds = sumDurations(chosen);
-          } else {
-            const result = buildAlternatingByDuration(grouped, targetSeconds);
-            chosen = result.list;
-            totalSeconds = result.totalSeconds;
-          }
-        }
-
-        currentPlaylist = chosen.slice();
-        renderPlaylist(currentPlaylist, totalSeconds);
-        createM3UDownload(currentPlaylist);
-
-        statusEl.className = 'success';
-        statusEl.textContent = `Playlist created with ${currentPlaylist.length} episodes.`;
-      } catch (err) {
-        console.error(err);
-        statusEl.className = 'error';
-        statusEl.textContent = 'Error building playlist – check console for details.';
-      }
-    });
-
     function shuffleArray(arr) {
       const a = arr.slice();
       for (let i = a.length - 1; i > 0; i--) {
@@ -541,28 +441,11 @@
       return parts.join(' ');
     }
 
-    function buildAlternatingByCount(grouped, targetCount) {
-      const queues = grouped.map(g => g.slice());
-      const result = [];
-      let added = 0;
-      while (added < targetCount) {
-        let madeProgress = false;
-        for (let i = 0; i < queues.length && added < targetCount; i++) {
-          if (queues[i].length > 0) {
-            result.push(queues[i].shift());
-            added++;
-            madeProgress = true;
-          }
-        }
-        if (!madeProgress) break;
-      }
-      return result;
-    }
-
     function buildAlternatingByDuration(grouped, targetSeconds) {
       const queues = grouped.map(g => g.slice());
       const result = [];
       let totalSeconds = 0;
+
       while (true) {
         let madeProgress = false;
         for (let i = 0; i < queues.length; i++) {
@@ -570,6 +453,7 @@
           if (q.length === 0) continue;
           const next = q[0];
           const d = next.durationSeconds || 0;
+
           if (d <= 0) {
             if (totalSeconds >= targetSeconds && result.length > 0) {
               continue;
@@ -588,21 +472,44 @@
         if (!madeProgress) break;
         if (totalSeconds >= targetSeconds) break;
       }
+
       return { list: result, totalSeconds };
+    }
+
+    function buildAlternatingByCount(grouped, targetCount) {
+      const queues = grouped.map(g => g.slice());
+      const result = [];
+      let added = 0;
+      while (added < targetCount) {
+        let madeProgress = false;
+        for (let i = 0; i < queues.length && added < targetCount; i++) {
+          if (queues[i].length > 0) {
+            result.push(queues[i].shift());
+            added++;
+            madeProgress = true;
+          }
+        }
+        if (!madeProgress) break;
+      }
+      return result;
     }
 
     function renderPlaylist(list, totalSeconds) {
       if (!list || list.length === 0) {
-        playlistContainer.innerHTML = '<div class="small">No episodes selected.</div>';
+        playlistContainer.innerHTML = '<div class="small">No playlist generated yet.</div>';
         summaryEl.textContent = '';
         downloadWrapper.style.display = 'none';
         return;
       }
 
       const totalH = totalSeconds > 0 ? (totalSeconds / 3600).toFixed(2) : '–';
-      summaryEl.textContent =
-        `Episodes: ${list.length}` +
-        (totalSeconds > 0 ? ` • Approx duration: ${totalH} hours (max 11h50m)` : '');
+      let summaryText = `Episodes: ${list.length}`;
+      if (totalSeconds > 0) {
+        summaryText += ` • Approx duration: ${totalH} hours (target ~11h50m)`;
+      } else {
+        summaryText += ` • Approx 12-hour set (no duration data, using episode count).`;
+      }
+      summaryEl.textContent = summaryText;
 
       let html = '<table>';
       html += '<thead><tr><th>#</th><th>Show</th><th>Title</th><th>Duration</th><th>Link</th></tr></thead><tbody>';
@@ -619,7 +526,7 @@
       playlistContainer.innerHTML = html;
 
       attachDragAndDropHandlers();
-      downloadWrapper.style.display = 'block';
+      createM3UDownload(list);
     }
 
     function createM3UDownload(list) {
@@ -672,10 +579,157 @@
 
           const totalSeconds = sumDurations(currentPlaylist);
           renderPlaylist(currentPlaylist, totalSeconds);
-          createM3UDownload(currentPlaylist);
         });
       });
     }
+
+    buildBtn.addEventListener('click', () => {
+      submitStatusEl.textContent = '';
+      submitStatusEl.className = 'small';
+
+      const listener = listenerNameInput.value.trim();
+      const title = streamTitleInput.value.trim();
+      const selectedShowIds = getSelectedShowIds();
+
+      if (!listener) {
+        statusEl.className = 'error';
+        statusEl.textContent = 'Please enter your listener name.';
+        return;
+      }
+      if (!title) {
+        statusEl.className = 'error';
+        statusEl.textContent = 'Please enter a desired stream title.';
+        return;
+      }
+      if (selectedShowIds.length === 0) {
+        statusEl.className = 'error';
+        statusEl.textContent = 'Please select at least one show.';
+        return;
+      }
+
+      statusEl.className = 'small';
+      statusEl.textContent = 'Building playlist…';
+
+      const selectedShows = allShows.filter(s => selectedShowIds.includes(s.id));
+
+      const grouped = selectedShows.map(show => {
+        const eps = Array.isArray(show.episodes) ? show.episodes : [];
+        let list = eps
+          .map(ep => {
+            const url = ep.url;
+            const cleanedTitle = normalizeTitle(ep.title, url);
+            return {
+              showId: show.id,
+              showName: show.name,
+              title: cleanedTitle,
+              url,
+              durationSeconds: typeof ep.durationSeconds === 'number' ? ep.durationSeconds : null
+            };
+          })
+          .filter(ep => ep.url && !isMultiPartTitle(ep.title));
+
+        list = shuffleArray(list);
+        return list;
+      });
+
+      const totalAvailableEpisodes = grouped.reduce((acc, g) => acc + g.length, 0);
+      if (totalAvailableEpisodes === 0) {
+        statusEl.className = 'error';
+        statusEl.textContent = 'No eligible episodes found for the selected shows.';
+        return;
+      }
+
+      const hasDurations = grouped.some(g => g.some(ep => ep.durationSeconds));
+      let resultList, totalSeconds;
+
+      if (hasDurations) {
+        const result = buildAlternatingByDuration(grouped, MAX_SECONDS);
+        resultList = result.list;
+        totalSeconds = result.totalSeconds;
+      } else {
+        const approxCount = 24; // rough ~12-hour set if episodes ~30 min
+        resultList = buildAlternatingByCount(grouped, approxCount);
+        totalSeconds = sumDurations(resultList);
+      }
+
+      currentPlaylist = resultList.slice();
+      renderPlaylist(currentPlaylist, totalSeconds);
+
+      statusEl.className = 'success';
+      statusEl.textContent = `Playlist created with ${currentPlaylist.length} episodes. You can drag rows to adjust the order.`;
+    });
+
+    clearBtn.addEventListener('click', () => {
+      currentPlaylist = [];
+      renderPlaylist([], 0);
+      statusEl.className = 'small';
+      statusEl.textContent = 'Playlist cleared.';
+      submitStatusEl.textContent = '';
+      submitStatusEl.className = 'small';
+    });
+
+    sendBtn.addEventListener('click', async () => {
+      submitStatusEl.className = 'small';
+      submitStatusEl.textContent = '';
+
+      const listener = listenerNameInput.value.trim();
+      const title = streamTitleInput.value.trim();
+
+      if (!listener || !title) {
+        submitStatusEl.className = 'error';
+        submitStatusEl.textContent = 'Please enter your name and desired stream title before sending.';
+        return;
+      }
+
+      if (!currentPlaylist || currentPlaylist.length === 0) {
+        submitStatusEl.className = 'error';
+        submitStatusEl.textContent = 'Please generate a playlist before sending.';
+        return;
+      }
+
+      if (!FORMSPREE_ENDPOINT) {
+        submitStatusEl.className = 'error';
+        submitStatusEl.textContent = 'Formspree endpoint is not configured.';
+        return;
+      }
+
+      const payload = {
+        listener,
+        streamTitle: title,
+        episodeCount: currentPlaylist.length,
+        playlist: currentPlaylist.map((ep, idx) => ({
+          index: idx + 1,
+          show: ep.showName,
+          title: ep.title,
+          url: ep.url,
+          durationSeconds: ep.durationSeconds || null
+        }))
+      };
+
+      submitStatusEl.textContent = 'Sending playlist…';
+
+      try {
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error('Non-200 response');
+        }
+
+        submitStatusEl.className = 'success';
+        submitStatusEl.textContent = 'Playlist sent successfully. Thank you!';
+      } catch (err) {
+        console.error(err);
+        submitStatusEl.className = 'error';
+        submitStatusEl.textContent = 'There was a problem sending the playlist. Please try again later.';
+      }
+    });
 
     loadShows();
   </script>
