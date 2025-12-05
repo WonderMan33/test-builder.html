@@ -165,14 +165,8 @@
       color: #a0a0b8;
       margin-bottom: 0.4rem;
     }
-    .disabled-note {
-      font-size: 0.8rem;
-      color: #707090;
-      margin-top: 0.2rem;
-      font-style: italic;
-    }
     .disabled {
-      opacity: 0.4;
+      opacity: 0.35;
       pointer-events: none;
     }
     .bg-options {
@@ -218,26 +212,15 @@
       <div class="col">
         <label>Background style</label>
         <div class="bg-options">
-          <label>
-            <input type="radio" name="background" value="dark_screen" checked>
-            Dark screen
-          </label>
-          <label>
-            <input type="radio" name="background" value="cozy_fireplace">
-            Cozy fireplace
-          </label>
-          <label>
-            <input type="radio" name="background" value="dark_room">
-            Dark room background
-          </label>
+          <label><input type="radio" name="background" value="dark_screen" checked>Dark screen</label>
+          <label><input type="radio" name="background" value="cozy_fireplace">Cozy fireplace</label>
+          <label><input type="radio" name="background" value="dark_room">Dark room background</label>
         </div>
-        <div class="small">
-          This tells Wade what kind of visual mood you’d like behind the radio programs.
-        </div>
+        <div class="small">This tells Wade what kind of visual mood you’d like behind the programs.</div>
       </div>
     </div>
     <div class="small">
-      This builder will aim for a single playlist of about 12 hours (max ~11h50m). You can reorder episodes after it’s generated, and they’ll be sent to Wade in that order.
+      This builder will aim for a single playlist of about 12 hours (max ~11h50m). You can reorder episodes after it’s generated, and they’ll be sent in that order.
     </div>
   </div>
 
@@ -246,36 +229,29 @@
     <div class="mode-line">
       <label>
         <input type="radio" name="selectionMode" value="genre" checked>
-        Choose by genre (all shows in those genres)
+        Choose by genre
       </label>
       <label>
         <input type="radio" name="selectionMode" value="show">
-        Choose specific shows manually
+        Choose specific shows
       </label>
     </div>
     <div class="mode-help" id="modeHelp">
-      Genre mode is active: select one or more genres below. All shows matching those genres will be included.
+      Genre mode is active: select one or more genres. All shows in those genres will be pooled.
     </div>
 
     <div class="row">
       <div class="col">
         <label>Genres</label>
-        <div id="genreList" class="genre-list">
-          <!-- Genres injected here -->
-        </div>
-        <div class="small">
-          Genre mode: these control which shows are included.  
-          Show mode: genres are ignored.
-        </div>
+        <div id="genreList" class="genre-list"></div>
+        <div id="genreNote" class="small"></div>
       </div>
       <div class="col">
         <label>Shows</label>
-        <div id="showList" class="show-list">
-          <!-- Shows injected here -->
-        </div>
-        <div class="small" id="showHelpText">
-          Genre mode: this list is informational; all listed shows are used.  
-          Show mode: you’ll see checkboxes here and pick shows directly.
+        <div id="showList" class="show-list"></div>
+        <div id="showHelpText" class="small">
+          Genre mode: list is informational (all shows in the chosen genres are used).<br>
+          Show mode: you’ll pick exact shows with checkboxes.
         </div>
       </div>
     </div>
@@ -307,9 +283,11 @@
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/mqarbnyg";
     const MAX_SECONDS = 11 * 3600 + 50 * 60; // 11h50m
 
-    let allShows = [];
+    let rawShows = [];
+    let allShows = [];  // normalized shows
     let currentPlaylist = [];
-    let selectionMode = "genre"; // "genre" or "show"
+    let selectionMode = "genre"; // "genre" or "show";
+    let genresAvailable = false;
 
     const listenerNameInput = document.getElementById('listenerName');
     const streamTitleInput = document.getElementById('streamTitle');
@@ -317,6 +295,7 @@
 
     const genreListEl = document.getElementById('genreList');
     const showListEl = document.getElementById('showList');
+    const genreNoteEl = document.getElementById('genreNote');
     const modeHelpEl = document.getElementById('modeHelp');
     const showHelpText = document.getElementById('showHelpText');
 
@@ -329,13 +308,11 @@
     const playlistContainer = document.getElementById('playlistContainer');
     const submitStatusEl = document.getElementById('submitStatus');
 
-    // Title char counter
     streamTitleInput.addEventListener('input', () => {
       const len = streamTitleInput.value.length;
       charCounter.textContent = `${len} / 100`;
     });
 
-    // Selection mode change
     document.querySelectorAll('input[name="selectionMode"]').forEach(radio => {
       radio.addEventListener('change', () => {
         selectionMode = radio.value;
@@ -343,41 +320,137 @@
       });
     });
 
-    function onSelectionModeChange() {
-      if (selectionMode === "genre") {
-        modeHelpEl.textContent = "Genre mode is active: select one or more genres. All shows matching those genres will be included automatically.";
-        showHelpText.textContent = "Genre mode: this list is informational; all listed shows will be used.\nShow mode: you’ll see checkboxes here and pick shows directly.";
-        genreListEl.classList.remove("disabled");
-        renderShowList(); // re-render in genre view (no checkboxes)
-      } else {
-        modeHelpEl.textContent = "Show mode is active: genres are ignored. Pick your shows directly from the list.";
-        showHelpText.textContent = "Show mode: pick the exact shows you want using the checkboxes.\nGenre mode: this list is informational only.";
-        genreListEl.classList.add("disabled");
-        // Clear any selected genres – they don't matter in show mode
-        genreListEl.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-        renderShowList(); // re-render with checkboxes
+    function slugify(str) {
+      return String(str || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '') || 'show-' + Math.random().toString(36).slice(2, 8);
+    }
+
+    function normalizeShow(show, index) {
+      const name = show.name || show.title || `Show ${index + 1}`;
+      const id = show.id || slugify(name);
+
+      let genres = show.genres || [];
+      if (typeof genres === 'string') genres = [genres];
+      if (!Array.isArray(genres)) genres = [];
+
+      let tags = show.tags || [];
+      if (typeof tags === 'string') tags = [tags];
+      if (!Array.isArray(tags)) tags = [];
+
+      const description = show.description || '';
+
+      const episodesRaw = show.episodes || show.Episodes || [];
+      const episodes = Array.isArray(episodesRaw) ? episodesRaw : [];
+
+      const normEpisodes = episodes
+        .map((ep, idx) => {
+          const url = ep.url || ep.link || ep.href;
+          if (!url) return null;
+
+          let title = ep.title || ep.name || `Episode ${idx + 1}`;
+          title = normalizeTitle(title, url);
+
+          let durationSeconds = null;
+          if (typeof ep.durationSeconds === 'number') {
+            durationSeconds = ep.durationSeconds;
+          } else if (typeof ep.duration === 'number') {
+            durationSeconds = ep.duration;
+          }
+
+          return {
+            title,
+            url,
+            durationSeconds
+          };
+        })
+        .filter(Boolean);
+
+      return {
+        id,
+        name,
+        genres,
+        tags,
+        description,
+        episodes: normEpisodes
+      };
+    }
+
+    function normalizeTitle(raw, url) {
+      let s = raw && raw.trim() ? raw.trim() : deriveTitleFromUrl(url);
+      s = s.replace(/\.[a-z0-9]{2,4}$/i, '');
+      s = s.replace(/[_\-]+/g, ' ');
+      s = s.replace(/\s+/g, ' ').trim();
+      s = s.split(' ').map(word => {
+        if (word.toUpperCase() === word && word.length > 1) return word;
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }).join(' ');
+      return s;
+    }
+
+    function deriveTitleFromUrl(url) {
+      if (!url) return 'Untitled Episode';
+      try {
+        const u = new URL(url);
+        const path = u.pathname.split('/').pop() || '';
+        return path || 'Untitled Episode';
+      } catch {
+        const parts = url.split('/');
+        return parts.pop() || 'Untitled Episode';
       }
-      statusEl.textContent = '';
-      currentPlaylist = [];
-      renderPlaylist([], 0);
+    }
+
+    function normalizeShowsArray(data) {
+      const arr = Array.isArray(data) ? data :
+                  (data && Array.isArray(data.shows) ? data.shows : []);
+      return arr.map((s, idx) => normalizeShow(s, idx));
     }
 
     async function loadShows() {
       try {
         statusEl.textContent = 'Loading shows…';
-        const res = await fetch('shows_enriched.json').catch(async () => {
-          // Fallback to shows.json if enriched not present
-          return await fetch('shows.json');
-        });
-        if (!res || !res.ok) throw new Error('Failed to load shows JSON');
-        allShows = await res.json();
-        buildGenreList();
+
+        const res = await fetch('./shows.json?cachebust=' + Date.now());
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status + ' when fetching shows.json');
+        }
+        const text = await res.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          console.error('JSON parse error:', e);
+          throw new Error('JSON parse error – shows.json is not valid JSON');
+        }
+
+        rawShows = data;
+        allShows = normalizeShowsArray(data);
+        if (!allShows.length) {
+          throw new Error('No shows found in shows.json (expected an array or a "shows" array).');
+        }
+
+        const anyGenres = allShows.some(s => (s.genres || []).length > 0);
+        genresAvailable = anyGenres;
+
+        if (!genresAvailable) {
+          genreListEl.innerHTML = '<div class="small">No genres found in this JSON.</div>';
+          genreNoteEl.textContent = 'Genre mode will not be very useful with this file. You can still choose shows manually.';
+          document.querySelector('input[name="selectionMode"][value="show"]').checked = true;
+          selectionMode = 'show';
+          onSelectionModeChange(true);
+        } else {
+          buildGenreList();
+          genreNoteEl.textContent = '';
+        }
+
         renderShowList();
+        statusEl.className = 'small';
         statusEl.textContent = `Loaded ${allShows.length} shows.`;
       } catch (err) {
-        console.error(err);
+        console.error('loadShows error:', err);
         statusEl.className = 'error';
-        statusEl.textContent = 'Error loading shows JSON. Make sure it exists in the same folder.';
+        statusEl.textContent = 'Error loading shows.json: ' + err.message;
       }
     }
 
@@ -390,6 +463,10 @@
       });
       const sortedGenres = Array.from(genres).sort();
       genreListEl.innerHTML = '';
+      if (!sortedGenres.length) {
+        genreListEl.innerHTML = '<div class="small">No genres found in this JSON.</div>';
+        return;
+      }
       sortedGenres.forEach(g => {
         const id = `genre_${g.replace(/\s+/g, '_').toLowerCase()}`;
         const div = document.createElement('div');
@@ -403,7 +480,7 @@
 
       genreListEl.addEventListener('change', () => {
         if (selectionMode === "genre") {
-          renderShowList(); // show list reflects genre filter
+          renderShowList();
         }
       });
     }
@@ -414,9 +491,9 @@
     }
 
     function getShowsMatchingSelectedGenres() {
+      if (!genresAvailable) return allShows.slice();
       const selectedGenres = getSelectedGenres();
       if (selectedGenres.length === 0) {
-        // In genre mode with no genres selected: treat as "all shows"
         return allShows.slice();
       }
       return allShows.filter(show => {
@@ -435,7 +512,7 @@
         showsToRender = allShows.slice();
       }
 
-      if (showsToRender.length === 0) {
+      if (!showsToRender.length) {
         showListEl.innerHTML = '<div class="small">No shows to display.</div>';
         return;
       }
@@ -453,13 +530,11 @@
         const metaText = metaBits.length ? ` – ${metaBits.join(' · ')}` : '';
 
         if (selectionMode === "genre") {
-          // Informational only, no checkboxes
           div.innerHTML = `
             <span>${show.name}</span>
             <small>${metaText}</small>
           `;
         } else {
-          // Show mode: checkboxes active
           div.innerHTML = `
             <input type="checkbox" id="${id}" data-show-id="${show.id}">
             <label for="${id}">${show.name}</label>
@@ -471,9 +546,29 @@
       });
     }
 
+    function onSelectionModeChange(fromAuto = false) {
+      if (selectionMode === "genre") {
+        if (!genresAvailable) {
+          selectionMode = "show";
+          const showRadio = document.querySelector('input[name="selectionMode"][value="show"]');
+          if (showRadio) showRadio.checked = true;
+          modeHelpEl.textContent = "Show mode is active because this JSON doesn't have usable genres. Pick shows directly.";
+        } else {
+          modeHelpEl.textContent = "Genre mode is active: select one or more genres. All shows in those genres will be used.";
+        }
+        genreListEl.classList.toggle("disabled", !genresAvailable);
+      } else {
+        modeHelpEl.textContent = "Show mode is active: genres are ignored. Pick your shows directly.";
+      }
+
+      renderShowList();
+      currentPlaylist = [];
+      renderPlaylist([], 0);
+      statusEl.textContent = fromAuto ? '' : 'Selection mode changed.';
+    }
+
     function getSelectedShowIds() {
       if (selectionMode === "genre") {
-        // All shows that match selected genres are automatically used
         const shows = getShowsMatchingSelectedGenres();
         return shows.map(s => s.id);
       } else {
@@ -486,41 +581,11 @@
       if (!rawTitle) return false;
       const t = rawTitle.toLowerCase();
       const patterns = [
-        'part 1',
-        'part one',
-        'pt 1',
-        'pt. 1',
-        'episode 1 of',
-        'ep 1 of',
-        '1 of 2',
-        '1 of 3',
-        'part i'
+        'part 1', 'part one', 'pt 1', 'pt. 1',
+        'episode 1 of', 'ep 1 of',
+        '1 of 2', '1 of 3', 'part i'
       ];
       return patterns.some(p => t.includes(p));
-    }
-
-    function deriveTitleFromUrl(url) {
-      if (!url) return 'Untitled Episode';
-      try {
-        const u = new URL(url);
-        const path = u.pathname.split('/').pop() || '';
-        return path || 'Untitled Episode';
-      } catch {
-        const parts = url.split('/');
-        return parts.pop() || 'Untitled Episode';
-      }
-    }
-
-    function normalizeTitle(raw, url) {
-      let s = raw && raw.trim() ? raw.trim() : deriveTitleFromUrl(url);
-      s = s.replace(/\.[a-z0-9]{2,4}$/i, '');
-      s = s.replace(/[_\-]+/g, ' ');
-      s = s.replace(/\s+/g, ' ').trim();
-      s = s.split(' ').map(word => {
-        if (word.toUpperCase() === word && word.length > 1) return word;
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-      }).join(' ');
-      return s;
     }
 
     function shuffleArray(arr) {
@@ -557,14 +622,11 @@
         let madeProgress = false;
         for (let i = 0; i < queues.length; i++) {
           const q = queues[i];
-          if (q.length === 0) continue;
+          if (!q.length) continue;
           const next = q[0];
           const d = next.durationSeconds || 0;
 
           if (d <= 0) {
-            if (totalSeconds >= targetSeconds && result.length > 0) {
-              continue;
-            }
             result.push(q.shift());
             madeProgress = true;
           } else {
@@ -579,7 +641,6 @@
         if (!madeProgress) break;
         if (totalSeconds >= targetSeconds) break;
       }
-
       return { list: result, totalSeconds };
     }
 
@@ -602,12 +663,11 @@
     }
 
     function renderPlaylist(list, totalSeconds) {
-      if (!list || list.length === 0) {
+      if (!list || !list.length) {
         playlistContainer.innerHTML = '<div class="small">No playlist generated yet.</div>';
         summaryEl.textContent = '';
         return;
       }
-
       const totalH = totalSeconds > 0 ? (totalSeconds / 3600).toFixed(2) : '–';
       let summaryText = `Episodes: ${list.length}`;
       if (totalSeconds > 0) {
@@ -658,10 +718,8 @@
           row.classList.remove('drag-over');
           const targetIndex = parseInt(row.getAttribute('data-index'), 10);
           if (dragSrcIndex === null || targetIndex === dragSrcIndex) return;
-
           const moved = currentPlaylist.splice(dragSrcIndex, 1)[0];
           currentPlaylist.splice(targetIndex, 0, moved);
-
           const totalSeconds = sumDurations(currentPlaylist);
           renderPlaylist(currentPlaylist, totalSeconds);
         });
@@ -691,10 +749,10 @@
         statusEl.textContent = 'Please enter a desired stream title.';
         return;
       }
-      if (selectedShowIds.length === 0) {
+      if (!selectedShowIds.length) {
         statusEl.className = 'error';
         statusEl.textContent = selectionMode === "genre"
-          ? 'Please select at least one genre or keep all genres clear to use every show.'
+          ? 'Please select at least one genre (or leave genres blank to use all shows).'
           : 'Please select at least one show.';
         return;
       }
@@ -705,19 +763,14 @@
       const selectedShows = allShows.filter(s => selectedShowIds.includes(s.id));
 
       const grouped = selectedShows.map(show => {
-        const eps = Array.isArray(show.episodes) ? show.episodes : [];
-        let list = eps
-          .map(ep => {
-            const url = ep.url;
-            const cleanedTitle = normalizeTitle(ep.title, url);
-            return {
-              showId: show.id,
-              showName: show.name,
-              title: cleanedTitle,
-              url,
-              durationSeconds: typeof ep.durationSeconds === 'number' ? ep.durationSeconds : null
-            };
-          })
+        let list = (show.episodes || [])
+          .map(ep => ({
+            showId: show.id,
+            showName: show.name,
+            title: ep.title,
+            url: ep.url,
+            durationSeconds: typeof ep.durationSeconds === 'number' ? ep.durationSeconds : null
+          }))
           .filter(ep => ep.url && !isMultiPartTitle(ep.title));
 
         list = shuffleArray(list);
@@ -739,7 +792,7 @@
         resultList = result.list;
         totalSeconds = result.totalSeconds;
       } else {
-        const approxCount = 24; // rough ~12-hour set if episodes ~30 min
+        const approxCount = 24;
         resultList = buildAlternatingByCount(grouped, approxCount);
         totalSeconds = sumDurations(resultList);
       }
@@ -773,8 +826,7 @@
         submitStatusEl.textContent = 'Please enter your name and desired stream title before sending.';
         return;
       }
-
-      if (!currentPlaylist || currentPlaylist.length === 0) {
+      if (!currentPlaylist || !currentPlaylist.length) {
         submitStatusEl.className = 'error';
         submitStatusEl.textContent = 'Please generate a playlist before sending.';
         return;
@@ -814,7 +866,7 @@
         });
 
         if (!res.ok) {
-          throw new Error('Non-200 response');
+          throw new Error('Non-200 response from Formspree');
         }
 
         submitStatusEl.className = 'success';
