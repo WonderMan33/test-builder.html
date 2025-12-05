@@ -42,8 +42,10 @@
       color: #f5f5f5;
       font-size: 0.95rem;
     }
-    input[type="checkbox"] {
+    input[type="checkbox"],
+    input[type="radio"] {
       accent-color: #ffc53a;
+      cursor: pointer;
     }
     button {
       padding: 0.45rem 0.9rem;
@@ -92,14 +94,6 @@
       flex: 1 1 260px;
       min-width: 260px;
     }
-    .pill {
-      display: inline-block;
-      padding: 0.15rem 0.5rem;
-      border-radius: 999px;
-      background: #25253a;
-      font-size: 0.75rem;
-      margin: 0 0.2rem 0.2rem 0;
-    }
     .genre-list, .show-list {
       max-height: 220px;
       overflow-y: auto;
@@ -137,9 +131,6 @@
     th {
       background: #19192a;
     }
-    a {
-      color: #7fd2ff;
-    }
     tr[data-index] {
       cursor: move;
     }
@@ -151,6 +142,38 @@
       color: #a0a0b8;
       text-align: right;
       margin-top: 0.1rem;
+    }
+    .mode-line {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.6rem;
+      font-size: 0.9rem;
+    }
+    .mode-line label {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      cursor: pointer;
+      color: #e0e0ff;
+    }
+    .mode-line input[type="radio"] {
+      margin-right: 0.3rem;
+    }
+    .mode-help {
+      font-size: 0.8rem;
+      color: #a0a0b8;
+      margin-bottom: 0.4rem;
+    }
+    .disabled-note {
+      font-size: 0.8rem;
+      color: #707090;
+      margin-top: 0.2rem;
+      font-style: italic;
+    }
+    .disabled {
+      opacity: 0.4;
+      pointer-events: none;
     }
     @media (max-width: 720px) {
       body {
@@ -176,32 +199,45 @@
       </div>
     </div>
     <div class="small">
-      This builder will aim for a single playlist of about 12 hours. You can reorder episodes after it’s generated.
+      This builder will aim for a single playlist of about 12 hours (max ~11h50m). You can reorder episodes after it’s generated, and they’ll be sent to Wade in that order.
     </div>
   </div>
 
   <div class="panel">
-    <h2>2. Choose Genres & Shows</h2>
+    <h2>2. How Do You Want to Choose Shows?</h2>
+    <div class="mode-line">
+      <label>
+        <input type="radio" name="selectionMode" value="genre" checked>
+        Choose by genre (all shows in those genres)
+      </label>
+      <label>
+        <input type="radio" name="selectionMode" value="show">
+        Choose specific shows manually
+      </label>
+    </div>
+    <div class="mode-help" id="modeHelp">
+      Genre mode is active: select one or more genres below. All shows matching those genres will be included.
+    </div>
+
     <div class="row">
       <div class="col">
-        <label>Filter by genres (optional)</label>
+        <label>Genres</label>
         <div id="genreList" class="genre-list">
-          <!-- Genres will be injected here -->
+          <!-- Genres injected here -->
         </div>
         <div class="small">
-          Selecting genres narrows the show list on the right. You can still manually pick individual shows.
+          Genre mode: these control which shows are included.  
+          Show mode: genres are ignored.
         </div>
       </div>
       <div class="col">
-        <label for="showSearch">Search shows</label>
-        <input id="showSearch" type="text" placeholder="Search by show name or tag…" />
-
-        <label style="margin-top:0.4rem;">Pick your shows</label>
+        <label>Shows</label>
         <div id="showList" class="show-list">
-          <!-- Shows with checkboxes injected here -->
+          <!-- Shows injected here -->
         </div>
-        <div class="small">
-          You can select as many shows as you like. The builder will alternate episodes from the selected shows.
+        <div class="small" id="showHelpText">
+          Genre mode: this list is informational; all listed shows are used.  
+          Show mode: you’ll see checkboxes here and pick shows directly.
         </div>
       </div>
     </div>
@@ -213,9 +249,6 @@
     <button id="clearBtn" class="secondary">Clear playlist</button>
     <div id="status" class="small"></div>
     <div id="summary" class="small"></div>
-    <div id="downloadWrapper" style="margin-top:0.5rem; display:none;">
-      <a id="downloadM3U" href="#" download="golden_radio_hour_playlist.m3u">⬇ Download .m3u playlist</a>
-    </div>
   </div>
 
   <div class="panel">
@@ -233,23 +266,21 @@
   </div>
 
   <script>
-    // Formspree endpoint wired to your form
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/mqarbnyg";
-
-    const MAX_HOURS = 11 + 50 / 60;
-    const MAX_SECONDS = 11 * 3600 + 50 * 60;
+    const MAX_SECONDS = 11 * 3600 + 50 * 60; // 11h50m
 
     let allShows = [];
-    let filteredShows = [];
     let currentPlaylist = [];
+    let selectionMode = "genre"; // "genre" or "show"
 
     const listenerNameInput = document.getElementById('listenerName');
     const streamTitleInput = document.getElementById('streamTitle');
     const charCounter = document.getElementById('charCounter');
 
     const genreListEl = document.getElementById('genreList');
-    const showSearchInput = document.getElementById('showSearch');
     const showListEl = document.getElementById('showList');
+    const modeHelpEl = document.getElementById('modeHelp');
+    const showHelpText = document.getElementById('showHelpText');
 
     const buildBtn = document.getElementById('buildBtn');
     const clearBtn = document.getElementById('clearBtn');
@@ -258,8 +289,6 @@
     const statusEl = document.getElementById('status');
     const summaryEl = document.getElementById('summary');
     const playlistContainer = document.getElementById('playlistContainer');
-    const downloadWrapper = document.getElementById('downloadWrapper');
-    const downloadM3U = document.getElementById('downloadM3U');
     const submitStatusEl = document.getElementById('submitStatus');
 
     // Title char counter
@@ -268,14 +297,39 @@
       charCounter.textContent = `${len} / 100`;
     });
 
-    // Load shows.json
+    // Selection mode change
+    document.querySelectorAll('input[name="selectionMode"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        selectionMode = radio.value;
+        onSelectionModeChange();
+      });
+    });
+
+    function onSelectionModeChange() {
+      if (selectionMode === "genre") {
+        modeHelpEl.textContent = "Genre mode is active: select one or more genres. All shows matching those genres will be included automatically.";
+        showHelpText.textContent = "Genre mode: this list is informational; all listed shows will be used.\nShow mode: you’ll see checkboxes here and pick shows directly.";
+        genreListEl.classList.remove("disabled");
+        renderShowList(); // re-render in genre view (no checkboxes)
+      } else {
+        modeHelpEl.textContent = "Show mode is active: genres are ignored. Pick your shows directly from the list.";
+        showHelpText.textContent = "Show mode: pick the exact shows you want using the checkboxes.\nGenre mode: this list is informational only.";
+        genreListEl.classList.add("disabled");
+        // Clear any selected genres – they don't matter in show mode
+        genreListEl.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        renderShowList(); // re-render with checkboxes
+      }
+      statusEl.textContent = '';
+      currentPlaylist = [];
+      renderPlaylist([], 0);
+    }
+
     async function loadShows() {
       try {
         statusEl.textContent = 'Loading shows…';
         const res = await fetch('shows.json');
         if (!res.ok) throw new Error('Failed to load shows.json');
         allShows = await res.json();
-        filteredShows = allShows.slice();
         buildGenreList();
         renderShowList();
         statusEl.textContent = `Loaded ${allShows.length} shows.`;
@@ -306,7 +360,11 @@
         genreListEl.appendChild(div);
       });
 
-      genreListEl.addEventListener('change', applyFilters);
+      genreListEl.addEventListener('change', () => {
+        if (selectionMode === "genre") {
+          renderShowList(); // show list reflects genre filter
+        }
+      });
     }
 
     function getSelectedGenres() {
@@ -314,66 +372,74 @@
       return Array.from(checked).map(cb => cb.getAttribute('data-genre'));
     }
 
-    function applyFilters() {
+    function getShowsMatchingSelectedGenres() {
       const selectedGenres = getSelectedGenres();
-      const q = (showSearchInput.value || '').toLowerCase().trim();
-
-      filteredShows = allShows.filter(show => {
-        let ok = true;
-
-        if (selectedGenres.length > 0) {
-          const showGenres = (show.genres || []).map(g => (g || '').toLowerCase());
-          const hit = selectedGenres.some(g => showGenres.includes(g.toLowerCase()));
-          if (!hit) ok = false;
-        }
-
-        if (ok && q) {
-          const tagsText = (show.tags || []).join(' ');
-          const hay = (show.name + ' ' + tagsText).toLowerCase();
-          if (!hay.includes(q)) ok = false;
-        }
-
-        return ok;
+      if (selectedGenres.length === 0) {
+        // In genre mode with no genres selected: treat as "all shows"
+        return allShows.slice();
+      }
+      return allShows.filter(show => {
+        const showGenres = (show.genres || []).map(g => (g || '').toLowerCase());
+        return selectedGenres.some(g => showGenres.includes(g.toLowerCase()));
       });
-
-      renderShowList();
     }
-
-    showSearchInput.addEventListener('input', applyFilters);
 
     function renderShowList() {
       showListEl.innerHTML = '';
-      if (filteredShows.length === 0) {
-        showListEl.innerHTML = '<div class="small">No shows match your filters.</div>';
+
+      let showsToRender;
+      if (selectionMode === "genre") {
+        showsToRender = getShowsMatchingSelectedGenres();
+      } else {
+        showsToRender = allShows.slice();
+      }
+
+      if (showsToRender.length === 0) {
+        showListEl.innerHTML = '<div class="small">No shows to display.</div>';
         return;
       }
 
-      filteredShows.forEach(show => {
+      showsToRender.forEach(show => {
         const id = `show_${show.id}`;
         const tags = show.tags || [];
         const genres = show.genres || [];
         const div = document.createElement('div');
         div.className = 'show-item';
+
         let metaBits = [];
         if (genres.length) metaBits.push(genres.join(', '));
         if (tags.length) metaBits.push(tags.slice(0, 3).join(', '));
         const metaText = metaBits.length ? ` – ${metaBits.join(' · ')}` : '';
 
-        div.innerHTML = `
-          <input type="checkbox" id="${id}" data-show-id="${show.id}">
-          <label for="${id}">${show.name}</label>
-          <small>${metaText}</small>
-        `;
+        if (selectionMode === "genre") {
+          // Informational only, no checkboxes
+          div.innerHTML = `
+            <span>${show.name}</span>
+            <small>${metaText}</small>
+          `;
+        } else {
+          // Show mode: checkboxes active
+          div.innerHTML = `
+            <input type="checkbox" id="${id}" data-show-id="${show.id}">
+            <label for="${id}">${show.name}</label>
+            <small>${metaText}</small>
+          `;
+        }
+
         showListEl.appendChild(div);
       });
     }
 
     function getSelectedShowIds() {
-      const checked = showListEl.querySelectorAll('input[type="checkbox"]:checked');
-      return Array.from(checked).map(cb => cb.getAttribute('data-show-id'));
+      if (selectionMode === "genre") {
+        // All shows that match selected genres are automatically used
+        const shows = getShowsMatchingSelectedGenres();
+        return shows.map(s => s.id);
+      } else {
+        const checked = showListEl.querySelectorAll('input[type="checkbox"]:checked');
+        return Array.from(checked).map(cb => cb.getAttribute('data-show-id'));
+      }
     }
-
-    // Helpers for episodes / playlist
 
     function isMultiPartTitle(rawTitle) {
       if (!rawTitle) return false;
@@ -392,18 +458,6 @@
       return patterns.some(p => t.includes(p));
     }
 
-    function normalizeTitle(raw, url) {
-      let s = raw && raw.trim() ? raw.trim() : deriveTitleFromUrl(url);
-      s = s.replace(/\.[a-z0-9]{2,4}$/i, '');
-      s = s.replace(/[_\-]+/g, ' ');
-      s = s.replace(/\s+/g, ' ').trim();
-      s = s.split(' ').map(word => {
-        if (word.toUpperCase() === word && word.length > 1) return word;
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-      }).join(' ');
-      return s;
-    }
-
     function deriveTitleFromUrl(url) {
       if (!url) return 'Untitled Episode';
       try {
@@ -414,6 +468,18 @@
         const parts = url.split('/');
         return parts.pop() || 'Untitled Episode';
       }
+    }
+
+    function normalizeTitle(raw, url) {
+      let s = raw && raw.trim() ? raw.trim() : deriveTitleFromUrl(url);
+      s = s.replace(/\.[a-z0-9]{2,4}$/i, '');
+      s = s.replace(/[_\-]+/g, ' ');
+      s = s.replace(/\s+/g, ' ').trim();
+      s = s.split(' ').map(word => {
+        if (word.toUpperCase() === word && word.length > 1) return word;
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      }).join(' ');
+      return s;
     }
 
     function shuffleArray(arr) {
@@ -498,7 +564,6 @@
       if (!list || list.length === 0) {
         playlistContainer.innerHTML = '<div class="small">No playlist generated yet.</div>';
         summaryEl.textContent = '';
-        downloadWrapper.style.display = 'none';
         return;
       }
 
@@ -512,40 +577,19 @@
       summaryEl.textContent = summaryText;
 
       let html = '<table>';
-      html += '<thead><tr><th>#</th><th>Show</th><th>Title</th><th>Duration</th><th>Link</th></tr></thead><tbody>';
+      html += '<thead><tr><th>#</th><th>Show</th><th>Title</th><th>Duration</th></tr></thead><tbody>';
       list.forEach((ep, idx) => {
         html += `<tr data-index="${idx}" draggable="true">
           <td>${idx + 1}</td>
           <td>${ep.showName}</td>
           <td>${ep.title}</td>
           <td>${formatDuration(ep.durationSeconds)}</td>
-          <td><a href="${ep.url}" target="_blank" rel="noopener">Play</a></td>
         </tr>`;
       });
       html += '</tbody></table>';
       playlistContainer.innerHTML = html;
 
       attachDragAndDropHandlers();
-      createM3UDownload(list);
-    }
-
-    function createM3UDownload(list) {
-      if (!list || list.length === 0) {
-        downloadWrapper.style.display = 'none';
-        return;
-      }
-
-      let m3u = '#EXTM3U\n';
-      list.forEach(ep => {
-        const dur = ep.durationSeconds != null ? ep.durationSeconds : -1;
-        m3u += `#EXTINF:${dur},${ep.showName} - ${ep.title}\n`;
-        m3u += `${ep.url}\n`;
-      });
-
-      const blob = new Blob([m3u], { type: 'audio/x-mpegurl' });
-      const url = URL.createObjectURL(blob);
-      downloadM3U.href = url;
-      downloadWrapper.style.display = 'block';
     }
 
     function attachDragAndDropHandlers() {
@@ -603,7 +647,9 @@
       }
       if (selectedShowIds.length === 0) {
         statusEl.className = 'error';
-        statusEl.textContent = 'Please select at least one show.';
+        statusEl.textContent = selectionMode === "genre"
+          ? 'Please select at least one genre or keep all genres clear to use every show.'
+          : 'Please select at least one show.';
         return;
       }
 
@@ -635,7 +681,7 @@
       const totalAvailableEpisodes = grouped.reduce((acc, g) => acc + g.length, 0);
       if (totalAvailableEpisodes === 0) {
         statusEl.className = 'error';
-        statusEl.textContent = 'No eligible episodes found for the selected shows.';
+        statusEl.textContent = 'No eligible episodes found for the chosen selection.';
         return;
       }
 
@@ -696,6 +742,7 @@
       const payload = {
         listener,
         streamTitle: title,
+        selectionMode,
         episodeCount: currentPlaylist.length,
         playlist: currentPlaylist.map((ep, idx) => ({
           index: idx + 1,
