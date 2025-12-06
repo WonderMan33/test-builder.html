@@ -283,8 +283,7 @@
     const FORMSPREE_ENDPOINT = "https://formspree.io/f/mqarbnyg";
     const MAX_SECONDS = 11 * 3600 + 50 * 60; // 11h50m
 
-    let rawShows = [];
-    let allShows = [];
+    let allShows = [];          // [{id, name, genres, tags, description, episodes: [...] }]
     let currentPlaylist = [];
     let selectionMode = "genre";
     let genresAvailable = false;
@@ -327,84 +326,140 @@
         .replace(/^-+|-+$/g, '') || 'show-' + Math.random().toString(36).slice(2, 8);
     }
 
-    function normalizeShow(show, index) {
-      const name = show.name || show.title || `Show ${index + 1}`;
-      const id = show.id || slugify(name);
-
-      let genres = show.genres || [];
-      if (typeof genres === 'string') genres = [genres];
-      if (!Array.isArray(genres)) genres = [];
-
-      let tags = show.tags || [];
-      if (typeof tags === 'string') tags = [tags];
-      if (!Array.isArray(tags)) tags = [];
-
-      const description = show.description || '';
-
-      const episodesRaw = show.episodes || show.Episodes || [];
-      const episodes = Array.isArray(episodesRaw) ? episodesRaw : [];
-
-      const normEpisodes = episodes
-        .map((ep, idx) => {
-          const url = ep.url || ep.link || ep.href;
-          if (!url) return null;
-
-          let title = ep.title || ep.name || `Episode ${idx + 1}`;
-          title = normalizeTitle(title, url);
-
-          let durationSeconds = null;
-          if (typeof ep.durationSeconds === 'number') {
-            durationSeconds = ep.durationSeconds;
-          } else if (typeof ep.duration === 'number') {
-            durationSeconds = ep.duration;
-          }
-
-          return {
-            title,
-            url,
-            durationSeconds
-          };
-        })
-        .filter(Boolean);
-
-      return {
-        id,
-        name,
-        genres,
-        tags,
-        description,
-        episodes: normEpisodes
-      };
+    function formatDuration(seconds) {
+      if (!seconds || seconds <= 0) return '–';
+      const h = Math.floor(seconds / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
+      const s = seconds % 60;
+      const parts = [];
+      if (h > 0) parts.push(`${h}h`);
+      if (m > 0) parts.push(`${m}m`);
+      if (h === 0 && m === 0) parts.push(`${s}s`);
+      return parts.join(' ');
     }
 
-    function normalizeTitle(raw, url) {
-      let s = raw && raw.trim() ? raw.trim() : deriveTitleFromUrl(url);
-      s = s.replace(/\.[a-z0-9]{2,4}$/i, '');
-      s = s.replace(/[_\-]+/g, ' ');
-      s = s.replace(/\s+/g, ' ').trim();
-      s = s.split(' ').map(word => {
-        if (word.toUpperCase() === word && word.length > 1) return word;
-        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-      }).join(' ');
-      return s;
+    function sumDurations(list) {
+      return list.reduce((acc, ep) => acc + (ep.durationSeconds || 0), 0);
     }
 
-    function deriveTitleFromUrl(url) {
-      if (!url) return 'Untitled Episode';
-      try {
-        const u = new URL(url);
-        const path = u.pathname.split('/').pop() || '';
-        return path || 'Untitled Episode';
-      } catch {
-        const parts = url.split('/');
-        return parts.pop() || 'Untitled Episode';
+    function shuffleArray(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
       }
+      return a;
     }
 
-    function normalizeShowsArray(data) {
-      const arr = Array.isArray(data) ? data :
-                  (data && Array.isArray(data.shows) ? data.shows : []);
-      return arr.map((s, idx) => normalizeShow(s, idx));
+    function isMultiPartTitle(rawTitle) {
+      if (!rawTitle) return false;
+      const t = rawTitle.toLowerCase();
+      const patterns = [
+        'part 1', 'part one', 'pt 1', 'pt. 1',
+        'episode 1 of', 'ep 1 of',
+        '1 of 2', '1 of 3', 'part i'
+      ];
+      return patterns.some(p => t.includes(p));
+    }
+
+    function buildAlternatingByDuration(grouped, targetSeconds) {
+      const queues = grouped.map(g => g.slice());
+      const result = [];
+      let totalSeconds = 0;
+
+      while (true) {
+        let madeProgress = false;
+        for (let i = 0; i < queues.length; i++) {
+          const q = queues[i];
+          if (!q.length) continue;
+          const next = q[0];
+          const d = next.durationSeconds || 0;
+
+          if (d <= 0) {
+            result.push(q.shift());
+            madeProgress = true;
+          } else {
+            if (totalSeconds + d > targetSeconds && result.length > 0) {
+              continue;
+            }
+            result.push(q.shift());
+            totalSeconds += d;
+            madeProgress = true;
+          }
+        }
+        if (!madeProgress) break;
+        if (totalSeconds >= targetSeconds) break;
+      }
+      return { list: result, totalSeconds };
+    }
+
+    function buildAlternatingByCount(grouped, targetCount) {
+      const queues = grouped.map(g => g.slice());
+      const result = [];
+      let added = 0;
+      while (added < targetCount) {
+        let madeProgress = false;
+        for (let i = 0; i < queues.length && added < targetCount; i++) {
+          if (queues[i].length > 0) {
+            result.push(queues[i].shift());
+            added++;
+            madeProgress = true;
+          }
+        }
+        if (!madeProgress) break;
+      }
+      return result;
+    }
+
+    function getBackgroundChoice() {
+      const r = document.querySelector('input[name="background"]:checked');
+      return r ? r.value : null;
+    }
+
+    function normalizeFromFlatJson(data) {
+      // data is array of per-file entries from your enriched builder:
+      // { show, title, displayTitle, relativePath, url, durationSeconds, genre, tags, description }
+      const arr = Array.isArray(data) ? data : [];
+
+      const map = new Map(); // showName -> showObj
+
+      arr.forEach((item, idx) => {
+        if (!item || !item.url) return;
+
+        const showName = item.show || (item.relativePath ? item.relativePath.split('/')[0] : `Show ${idx+1}`);
+        const showId = slugify(showName);
+
+        if (!map.has(showName)) {
+          let genre = item.genre || 'Unknown';
+          let tags = item.tags || [];
+          if (typeof tags === 'string') tags = [tags];
+          if (!Array.isArray(tags)) tags = [];
+
+          const description = item.description || '';
+
+          map.set(showName, {
+            id: showId,
+            name: showName,
+            genres: genre ? [genre] : [],
+            tags,
+            description,
+            episodes: []
+          });
+        }
+
+        const showObj = map.get(showName);
+
+        const epTitle = item.displayTitle || item.title || 'Untitled Episode';
+        const ep = {
+          title: epTitle,
+          url: item.url,
+          durationSeconds: typeof item.durationSeconds === 'number' ? item.durationSeconds : null
+        };
+
+        showObj.episodes.push(ep);
+      });
+
+      return Array.from(map.values());
     }
 
     async function loadShows() {
@@ -424,10 +479,11 @@
           throw new Error('JSON parse error – shows.json is not valid JSON');
         }
 
-        rawShows = data;
-        allShows = normalizeShowsArray(data);
+        // We assume flat per-file JSON from the enriched builder
+        allShows = normalizeFromFlatJson(data);
+
         if (!allShows.length) {
-          throw new Error('No shows found in shows.json (expected an array or a "shows" array).');
+          throw new Error('No shows found in shows.json.');
         }
 
         const anyGenres = allShows.some(s => (s.genres || []).length > 0);
@@ -577,91 +633,6 @@
       }
     }
 
-    function isMultiPartTitle(rawTitle) {
-      if (!rawTitle) return false;
-      const t = rawTitle.toLowerCase();
-      const patterns = [
-        'part 1', 'part one', 'pt 1', 'pt. 1',
-        'episode 1 of', 'ep 1 of',
-        '1 of 2', '1 of 3', 'part i'
-      ];
-      return patterns.some(p => t.includes(p));
-    }
-
-    function shuffleArray(arr) {
-      const a = arr.slice();
-      for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    function sumDurations(list) {
-      return list.reduce((acc, ep) => acc + (ep.durationSeconds || 0), 0);
-    }
-
-    function formatDuration(seconds) {
-      if (!seconds || seconds <= 0) return '–';
-      const h = Math.floor(seconds / 3600);
-      const m = Math.floor((seconds % 3600) / 60);
-      const s = seconds % 60;
-      const parts = [];
-      if (h > 0) parts.push(`${h}h`);
-      if (m > 0) parts.push(`${m}m`);
-      if (h === 0 && m === 0) parts.push(`${s}s`);
-      return parts.join(' ');
-    }
-
-    function buildAlternatingByDuration(grouped, targetSeconds) {
-      const queues = grouped.map(g => g.slice());
-      const result = [];
-      let totalSeconds = 0;
-
-      while (true) {
-        let madeProgress = false;
-        for (let i = 0; i < queues.length; i++) {
-          const q = queues[i];
-          if (!q.length) continue;
-          const next = q[0];
-          const d = next.durationSeconds || 0;
-
-          if (d <= 0) {
-            result.push(q.shift());
-            madeProgress = true;
-          } else {
-            if (totalSeconds + d > targetSeconds && result.length > 0) {
-              continue;
-            }
-            result.push(q.shift());
-            totalSeconds += d;
-            madeProgress = true;
-          }
-        }
-        if (!madeProgress) break;
-        if (totalSeconds >= targetSeconds) break;
-      }
-      return { list: result, totalSeconds };
-    }
-
-    function buildAlternatingByCount(grouped, targetCount) {
-      const queues = grouped.map(g => g.slice());
-      const result = [];
-      let added = 0;
-      while (added < targetCount) {
-        let madeProgress = false;
-        for (let i = 0; i < queues.length && added < targetCount; i++) {
-          if (queues[i].length > 0) {
-            result.push(queues[i].shift());
-            added++;
-            madeProgress = true;
-          }
-        }
-        if (!madeProgress) break;
-      }
-      return result;
-    }
-
     function renderPlaylist(list, totalSeconds) {
       if (!list || !list.length) {
         playlistContainer.innerHTML = '<div class="small">No playlist generated yet.</div>';
@@ -724,11 +695,6 @@
           renderPlaylist(currentPlaylist, totalSeconds);
         });
       });
-    }
-
-    function getBackgroundChoice() {
-      const r = document.querySelector('input[name="background"]:checked');
-      return r ? r.value : null;
     }
 
     buildBtn.addEventListener('click', () => {
