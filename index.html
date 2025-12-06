@@ -117,6 +117,12 @@
       color: #8080a0;
       margin-left: 0.25rem;
     }
+
+    /* 🔹 NEW: hide genre checkboxes when in show mode */
+    .genre-list.hide-genre-checkboxes input[type="checkbox"] {
+      display: none;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -602,25 +608,47 @@
       });
     }
 
+    // 🔹 UPDATED to hide/show genre checkboxes & clear opposite selections
     function onSelectionModeChange(fromAuto = false) {
       if (selectionMode === "genre") {
+        // If JSON has no genres, force show mode
         if (!genresAvailable) {
           selectionMode = "show";
           const showRadio = document.querySelector('input[name="selectionMode"][value="show"]');
           if (showRadio) showRadio.checked = true;
           modeHelpEl.textContent = "Show mode is active because this JSON doesn't have usable genres. Pick shows directly.";
+          genreListEl.classList.add("hide-genre-checkboxes");
         } else {
+          // Genre mode: genres selectable, show side is informational
           modeHelpEl.textContent = "Genre mode is active: select one or more genres. All shows in those genres will be used.";
+          genreListEl.classList.remove("hide-genre-checkboxes");
+          genreListEl.classList.remove("disabled");
+
+          // Clear any show checkboxes when switching to genre mode
+          const showCheckboxes = showListEl.querySelectorAll('input[type="checkbox"]');
+          showCheckboxes.forEach(cb => cb.checked = false);
         }
-        genreListEl.classList.toggle("disabled", !genresAvailable);
       } else {
+        // Show mode: shows selectable, genres become informational only
         modeHelpEl.textContent = "Show mode is active: genres are ignored. Pick your shows directly.";
+
+        // Clear any selected genres and hide their checkboxes
+        const genreCheckboxes = genreListEl.querySelectorAll('input[type="checkbox"]');
+        genreCheckboxes.forEach(cb => cb.checked = false);
+        genreListEl.classList.add("hide-genre-checkboxes");
       }
 
+      // Re-render show list to swap between show-checkbox vs informational
       renderShowList();
+
+      // Clear playlist when switching modes to avoid confusion
       currentPlaylist = [];
       renderPlaylist([], 0);
-      statusEl.textContent = fromAuto ? '' : 'Selection mode changed.';
+
+      if (!fromAuto) {
+        statusEl.textContent = 'Selection mode changed.';
+        statusEl.className = 'small';
+      }
     }
 
     function getSelectedShowIds() {
